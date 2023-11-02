@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Pacote extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'descricao',
+        'valor',
+        'qtdeSecoes',
+        'validade',
+        'id_empresa'
+    ];
 }
