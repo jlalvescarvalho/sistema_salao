@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicos', function (Blueprint $table) {
+        Schema::create('agendamento_servicos', function (Blueprint $table) {
             $table->id();
-            $table->string("descricao");
-            $table->float("precocusto")->nullable();
-            $table->float("precovenda");
-            $table->unsignedBigInteger("id_empresa");
-            $table->foreign("id_empresa")->references('id')->on('empresas');
+            $table->unsignedBigInteger("id_agendamento");
+            $table->foreign("id_agendamento")->references('id')->on('agendamentos');
+            $table->unsignedBigInteger("id_servico");
+            $table->foreign("id_servico")->references('id')->on('servicos');
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicos');
+        Schema::dropIfExists('agendamento_servicos');
     }
 };

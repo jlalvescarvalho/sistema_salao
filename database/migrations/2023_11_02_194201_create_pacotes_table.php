@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicos', function (Blueprint $table) {
+        Schema::create('pacotes', function (Blueprint $table) {
             $table->id();
             $table->string("descricao");
-            $table->float("precocusto")->nullable();
-            $table->float("precovenda");
+            $table->float("valor");
+            $table->integer("qtdeSecoes");
+            $table->string("validade");
             $table->unsignedBigInteger("id_empresa");
             $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicos');
+        Schema::dropIfExists('pacotes');
     }
 };
