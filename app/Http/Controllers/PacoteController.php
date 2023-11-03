@@ -12,7 +12,7 @@ class PacoteController extends Controller
      */
     public function index()
     {
-        //
+        return view('pacote.index');
     }
 
     /**

@@ -12,7 +12,6 @@ class PacoteServicoController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
