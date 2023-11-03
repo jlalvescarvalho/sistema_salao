@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
+            $table->string("nome");
+            $table->string("fone")->nullable();
+            $table->string("cpf")->nullable();
+            $table->string("dt_nascimento")->nullable();
+            $table->unsignedBigInteger("id_endereco");
+            $table->foreign("id_endereco")->references('id')->on('enderecos');
+            $table->unsignedBigInteger("id_empresa");
+            $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
         });
     }

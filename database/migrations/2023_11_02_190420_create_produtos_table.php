@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
+            $table->string("codbarra")->nullable();
+            $table->string("descricao");
+            $table->string("un")->nullable();
+            $table->float("precocusto")->nullable();
+            $table->float("precovenda");
+            $table->float("estoqueinicial")->nullable();
+            $table->unsignedBigInteger("id_empresa");
+            $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
         });
     }

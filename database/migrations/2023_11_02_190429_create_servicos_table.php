@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('servicos', function (Blueprint $table) {
             $table->id();
+            $table->string("descricao");
+            $table->float("precocusto")->nullable();
+            $table->float("precovenda");
+            $table->unsignedBigInteger("id_empresa");
+            $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
         });
     }

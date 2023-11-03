@@ -34,9 +34,10 @@ class EmpresaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Empresa $empresa)
+    public function show()
     {
-        //
+
+        return view('empresa.index');
     }
 
     /**

@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
+            $table->string("rua");
+            $table->string("numero")->default("0");
+            $table->string("bairro")->default("centro");
+            $table->string("cidade")->default("Garanhuns");
+            $table->string("estado")->default("PE");
+            $table->string("cep")->nullable();
             $table->timestamps();
         });
     }

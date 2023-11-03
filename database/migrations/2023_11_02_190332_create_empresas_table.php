@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
+            $table->string("razao_social");
+            $table->string("nome_fantasia");
+            $table->string("fone");
+            $table->unsignedBigInteger("id_endereco");
+            $table->foreign("id_endereco")->references('id')->on('enderecos');
             $table->timestamps();
         });
     }

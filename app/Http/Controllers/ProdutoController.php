@@ -12,7 +12,7 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        //
+        return view('produto.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produto $produto)
+    public function show($id, $empresa)
     {
         //
     }
@@ -42,7 +42,7 @@ class ProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produto $produto)
+    public function edit($id, $empresa)
     {
         //
     }
@@ -50,7 +50,7 @@ class ProdutoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request)
     {
         //
     }
@@ -58,7 +58,7 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produto $produto)
+    public function destroy($id, $empresa)
     {
         //
     }
