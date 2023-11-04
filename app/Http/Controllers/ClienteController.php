@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('cliente.index');
+        return view('clientes.index');
     }
 
     /**
@@ -20,15 +21,34 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateClienteRequest $request)
     {
-        //
+        $dados = $request->all();
+        $cliente = Cliente::create([
+            'nome' => $dados['nome'],
+            'telefone' => $dados['telefone'],
+            'cpf' => $dados['cpf'],
+            'data_nascimento' => $dados['data_nascimento'],
+        ]);
+
+        if (isset($dados['endereco'])) {
+            $cliente->endereco()->create([
+                'rua' => $dados['endereco']['rua'],
+                'numero' => $dados['endereco']['numero'],
+                'bairro' => $dados['endereco']['bairro'],
+                'cidade' => $dados['endereco']['cidade'],
+                'estado' => $dados['endereco']['estado'],
+                'cep' => $dados['endereco']['cep'],
+            ]);
+        }
+
+        return redirect()->route('clientes.index');
     }
 
     /**

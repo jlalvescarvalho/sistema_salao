@@ -16,6 +16,5 @@ class Endereco extends Model
         'cidade',
         'estado',
         'cep',
-        'id_empresa'
     ];
 }
