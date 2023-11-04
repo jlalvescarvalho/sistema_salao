@@ -7,7 +7,9 @@
 @stop
 
 @section('content')
-    
+@foreach ($servicos as $servico)
+<p>{{ $servico->nome }}</p>
+@endforeach
 @stop
 
 @section('css')
@@ -15,5 +17,4 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
 @stop

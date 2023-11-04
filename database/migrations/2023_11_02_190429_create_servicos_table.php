@@ -13,6 +13,7 @@ return new class() extends Migration
     {
         Schema::create('servicos', function (Blueprint $table) {
             $table->id();
+            $table->string("nome", 50);
             $table->string("descricao");
             $table->float("preco_custo", 8, 2)->unsigned()->nullable();
             $table->float("preco_venda", 8, 2)->unsigned();

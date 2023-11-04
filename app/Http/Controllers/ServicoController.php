@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateServicoRequest;
 use App\Models\Servico;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,9 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        return view('servico.index');
+        return view('servico.index', [
+            'servicos' => Servico::all(),
+        ]);
     }
 
     /**
@@ -20,15 +23,17 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('servico.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateServicoRequest $request)
     {
-        //
+        $dados = $request->validated();
+        Servico::create($dados);
+        return redirect()->route('servicos.index');
     }
 
     /**
