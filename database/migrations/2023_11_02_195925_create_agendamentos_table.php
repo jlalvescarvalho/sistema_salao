@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
-            $table->string("observacao");
-            $table->string("data_hora");
-            $table->string("duracao");
-            $table->string("status");
-            $table->string("descontar_session")->default("SIM");
             $table->unsignedBigInteger("id_cliente");
+            $table->dateTime("data_hora");
+            $table->time("duracao");
+            $table->enum("status", ["pendente", "concluido", "cancelado", "faltou"])->default("pendente");
+
+            $table->string("observacao")->nullable();
+            $table->dateTime("data_hora_chegada")->nullable();
+            $table->dateTime("data_hora_finalizacao")->nullable();
+
             $table->foreign("id_cliente")->references('id')->on('clientes');
-            $table->unsignedBigInteger("id_empresa");
-            $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
         });
     }

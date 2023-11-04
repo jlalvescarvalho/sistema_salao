@@ -22,6 +22,18 @@
     {{-- Custom stylesheets (pre AdminLTE) --}}
     @yield('adminlte_css_pre')
 
+    <style>
+        .page-title {
+            margin-left: 1rem !important;
+        }
+
+        .custom-form {
+            padding-bottom: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+    </style>
+
     {{-- Base Stylesheets --}}
     @if(!config('adminlte.enabled_laravel_mix'))
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}">

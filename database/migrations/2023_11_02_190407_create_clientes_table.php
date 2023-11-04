@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
@@ -14,13 +14,11 @@ return new class extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string("nome");
-            $table->string("fone")->nullable();
+            $table->string("telefone")->nullable();
             $table->string("cpf")->nullable();
-            $table->string("dt_nascimento")->nullable();
+            $table->string("data_nascimento")->nullable();
             $table->unsignedBigInteger("id_endereco");
             $table->foreign("id_endereco")->references('id')->on('enderecos');
-            $table->unsignedBigInteger("id_empresa");
-            $table->foreign("id_empresa")->references('id')->on('empresas');
             $table->timestamps();
         });
     }
