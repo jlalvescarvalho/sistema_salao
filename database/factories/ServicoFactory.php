@@ -17,7 +17,10 @@ class ServicoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'nome'          => fake()->name(),
+            'descricao'     => fake()->descricao(),
+            'preco_custo'   => fake()->floatval(),
+            'preco_venda'   => fake()->floatval(),
         ];
     }
 }

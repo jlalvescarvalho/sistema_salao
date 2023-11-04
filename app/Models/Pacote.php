@@ -14,6 +14,5 @@ class Pacote extends Model
         'valor',
         'qtdeSecoes',
         'validade',
-        'id_empresa'
     ];
 }

@@ -17,12 +17,11 @@ class ClienteFactory extends Factory
     public function definition(): array
     {
         return [
-            'nome',
-            'cpf',
-            'fone',
-            'dt_nascimento',
-            'id_endereco',
-            'id_empresa'
+            'nome'           => fake()->name(),
+            'cpf'            => fake()->unique()->cpf(),
+            'fone'           => fake()->fone(),
+            'dt_nascimento'  => fake()->dt_nascimento(),
+            'id_endereco'    => fake()->id_endereco(),
         ];
     }
 }

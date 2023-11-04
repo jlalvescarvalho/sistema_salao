@@ -16,6 +16,5 @@ class Produto extends Model
         'preco_custo',
         'preco_venda',
         'estoqueinicial',
-        'id_empresa'
     ];
 }
