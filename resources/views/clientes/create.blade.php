@@ -16,7 +16,7 @@
                 <div class="form-group col-12 col-lg-6">
                     <label for="nome">Nome</label>
                     <input id="nome" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror"
-                        value="{{ old('nome') }}" placeholder="Informe o nome completo">
+                        value="{{ old('nome') }}" placeholder="Informe o nome completo" required>
                     @error('nome')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -25,7 +25,7 @@
                     <label for="cpf">CPF</label>
                     <input id="cpf" type="text" name="cpf"
                         class="form-control @error('cpf') is-invalid @enderror" value="{{ old('cpf') }}"
-                        placeholder="000.000.000-00">
+                        placeholder="000.000.000-00" required>
                     @error('cpf')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -44,7 +44,7 @@
                     <label for="telefone">Telefone</label>
                     <input id="telefone" type="text" name="telefone"
                         class="form-control @error('telefone') is-invalid @enderror" value="{{ old('telefone') }}"
-                        placeholder="(00) 00000-0000">
+                        placeholder="(00) 00000-0000" required>
                     @error('telefone')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
@@ -119,11 +119,6 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
-    <style>
-        #descricao {
-            resize: none;
-        }
-    </style>
 @stop
 
 @section('js')
