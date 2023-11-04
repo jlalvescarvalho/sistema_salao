@@ -14,9 +14,9 @@ return new class() extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string("nome");
-            $table->string("telefone")->nullable();
-            $table->string("cpf")->nullable();
-            $table->string("data_nascimento")->nullable();
+            $table->string("telefone", 20)->nullable();
+            $table->string("cpf", 11)->nullable();
+            $table->date("data_nascimento")->nullable();
             $table->unsignedBigInteger("id_endereco");
             $table->foreign("id_endereco")->references('id')->on('enderecos');
             $table->timestamps();
