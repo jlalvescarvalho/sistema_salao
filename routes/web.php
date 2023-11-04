@@ -30,13 +30,5 @@ Route::get('/produtos/edit/{id},{empresa}', [App\Http\Controllers\ProdutoControl
 Route::put('/produtos/update', [App\Http\Controllers\ProdutoController::class, 'update'])->name('produto-update');
 Route::delete('/produtos/delete/{id},{empresa}', [App\Http\Controllers\ProdutoController::class, 'destroy'])->name('produto-apagar');
 
-//Cliente
-Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('clientes');
-Route::get('/clientes/novo', [App\Http\Controllers\ClienteController::class, 'create'])->name('novo-cliente');
-Route::post('/clientes', [App\Http\Controllers\ClienteController::class, 'store'])->name('salvar-cliente');
-Route::get('/clientes/show/{id},{empresa}', [App\Http\Controllers\ClienteController::class, 'show'])->name('cliente-vizualizar');
-Route::get('/clientes/edit/{id},{empresa}', [App\Http\Controllers\ClienteController::class, 'edit'])->name('cliente-editar');
-Route::put('/clientes/update', [App\Http\Controllers\ClienteController::class, 'update'])->name('cliente-update');
-Route::delete('/clientes/delete/{id},{empresa}', [App\Http\Controllers\ClienteController::class, 'destroy'])->name('cliente-apagar');
-
+Route::resource('clientes', App\Http\Controllers\ClienteController::class);
 Route::resource('servicos', App\Http\Controllers\ServicoController::class);

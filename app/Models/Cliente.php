@@ -4,16 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cliente extends Model
 {
     use HasFactory;
     protected $fillable = [
         'nome',
+        'telefone',
         'cpf',
-        'fone',
-        'dt_nascimento',
-        'id_endereco',
-        'id_empresa'
+        'data_nascimento',
     ];
+
+    public function endereco(): HasOne
+    {
+        return $this->hasOne(Endereco::class);
+    }
 }
