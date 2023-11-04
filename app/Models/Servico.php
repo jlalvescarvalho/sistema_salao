@@ -11,8 +11,8 @@ class Servico extends Model
 
     protected $fillable = [
         'descricao',
-        'precocusto',
-        'precovenda',
+        'preco_custo',
+        'preco_venda',
         'id_empresa'
     ];
 }

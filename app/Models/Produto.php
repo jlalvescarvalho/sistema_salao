@@ -13,8 +13,8 @@ class Produto extends Model
         'codbarras',
         'descricao',
         'un',
-        'precocusto',
-        'precovenda',
+        'preco_custo',
+        'preco_venda',
         'estoqueinicial',
         'id_empresa'
     ];
