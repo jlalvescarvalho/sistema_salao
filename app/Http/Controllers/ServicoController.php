@@ -13,7 +13,7 @@ class ServicoController extends Controller
      */
     public function index()
     {
-        return view('servico.index', [
+        return view('servicos.index', [
             'servicos' => Servico::all(),
         ]);
     }
@@ -23,7 +23,7 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        return view('servico.create');
+        return view('servicos.create');
     }
 
     /**

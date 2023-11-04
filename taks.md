@@ -3,6 +3,11 @@
 [] editar 
 [] excluir
 [] login
+# [pendente] Clientes
+Os clientes devem conter os dados descritos do diagrama.
+[X] criar 
+[] editar 
+[] excluir
 # [pendente] Serviços
 Os serviços devem conter os dados descritos do diagrama.
 [X] criar 
