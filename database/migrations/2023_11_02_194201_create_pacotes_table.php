@@ -14,7 +14,8 @@ return new class() extends Migration
         Schema::create('pacotes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("id_servico");
-            $table->string("descricao");
+            $table->string("nome", 50);
+            $table->string("descricao")->nullable();
             $table->float("valor", 8, 2)->unsigned();
             $table->unsignedTinyInteger("qtd_sessoes");
             $table->unsignedTinyInteger("validade");

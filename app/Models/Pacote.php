@@ -10,9 +10,10 @@ class Pacote extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nome',
         'descricao',
         'valor',
-        'qtdeSecoes',
+        'qtd_sessoes',
         'validade',
     ];
 }

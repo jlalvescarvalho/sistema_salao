@@ -31,8 +31,7 @@ class ServicosDataTable extends DataTable
      */
     public function query(Servico $model): QueryBuilder
     {
-        dd($model);
-        return $model->newQuery()->select('*');
+        return $model->newQuery();
     }
 
     /**
@@ -41,7 +40,7 @@ class ServicosDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('servicos')
+            ->setTableId('servicos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
@@ -53,7 +52,8 @@ class ServicosDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
+
             ]);
     }
 
@@ -63,16 +63,17 @@ class ServicosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('nome'),
-            Column::make('descricao'),
-            Column::make('preco_custo'),
-            Column::make('preco_venda'),
+
+            Column::make('id')->title('ID'),
+            Column::make('nome')->title('Nome'),
+            Column::make('preco_custo')->title('Custo')->renderJs('number', '.', ',', '2', ''),
+            Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),
+            Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
             Column::computed('action')
                 ->exportable(true)
                 ->printable(true)
-                ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-center')->title('Ações'),
+
         ];
     }
 

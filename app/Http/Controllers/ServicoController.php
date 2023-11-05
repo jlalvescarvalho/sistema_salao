@@ -14,6 +14,7 @@ class ServicoController extends Controller
      */
     public function index(ServicosDataTable $dataTable)
     {
+
         return $dataTable->render('servicos.index');
     }
 

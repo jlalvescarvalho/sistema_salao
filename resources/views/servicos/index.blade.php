@@ -7,26 +7,21 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header">Serviços</div>
-            <div class="card-body">
-                {{ $dataTable->table() }}
-            </div>
-        </div>
-    </div>
-@endsection
- 
-@push('scripts')
-    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
-@endpush
+
+<a href="{{ route('servicos.create') }}"><button class="btn btn-primary">+ Novo</button></a>
+<br><br> 
+    {{ $dataTable->table() }}
+@stop
+
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.css" rel="stylesheet">
 @stop
 
 @section('js')
-
-
-
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.js"></script>
 @stop
+
+@push('js')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush
