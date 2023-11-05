@@ -52,7 +52,7 @@ class ServicosDataTable extends DataTable
                 Button::make('pdf'),
                 Button::make('print'),
                 Button::make('reset'),
-                Button::make('reload')
+                Button::make('reload'),
             ]);
     }
 
@@ -62,16 +62,15 @@ class ServicosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('nome'),
-            Column::make('preco_custo', 'Custo'),
-            Column::make('preco_venda', 'Preço de venda'),
-            Column::make('created_at', 'Criado em'),
+            Column::make('id')->title('ID'),
+            Column::make('nome')->title('Nome'),
+            Column::make('preco_custo')->title('Custo')->renderJs('number', '.', ',', '2', ''),
+            Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),
+            Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
             Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+                ->exportable(true)
+                ->printable(true)
+                ->addClass('text-center')->title('Ações'),
         ];
     }
 

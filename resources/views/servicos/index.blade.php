@@ -7,6 +7,8 @@
 @stop
 
 @section('content')
+<a href="{{ route('servicos.create') }}"><button class="btn btn-primary">+ Novo</button></a>
+<br><br> 
     {{ $dataTable->table() }}
 @stop
 

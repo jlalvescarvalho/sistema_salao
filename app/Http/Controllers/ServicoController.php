@@ -14,11 +14,8 @@ class ServicoController extends Controller
      */
     public function index(ServicosDataTable $dataTable)
     {
-        // dd(Servico::all());
+
         return $dataTable->render('servicos.index');
-        // return view('servicos.index', [
-        //     'servicos' => Servico::all(),
-        // ]);
     }
 
     /**
