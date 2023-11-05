@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ServicosDataTable;
 use App\Http\Requests\CreateServicoRequest;
 use App\Models\Servico;
 use Illuminate\Http\Request;
@@ -11,11 +12,13 @@ class ServicoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ServicosDataTable $dataTable)
     {
-        return view('servicos.index', [
-            'servicos' => Servico::all(),
-        ]);
+        // dd(Servico::all());
+        return $dataTable->render('servicos.index');
+        // return view('servicos.index', [
+        //     'servicos' => Servico::all(),
+        // ]);
     }
 
     /**
