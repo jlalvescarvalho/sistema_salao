@@ -48,7 +48,7 @@ class ServicosDataTable extends DataTable
             ->setTableId('servicos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('Bfrtip')
+            // ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
