@@ -18,6 +18,7 @@ return new class() extends Migration
             $table->date("data_contrato");
             $table->date("data_vencimento");
             $table->unsignedTinyInteger("qtd_sessoes");
+            $table->enum("status", ["ativo", "vencido", "finalizado", "cancelado"])->default("ativo");
             $table->timestamps();
             $table->foreign("id_cliente")->references("id")->on("clientes")->deleteOnDelete();
             $table->foreign("id_pacote")->references("id")->on("pacotes")->deleteOnDelete();
