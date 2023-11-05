@@ -32,3 +32,4 @@ Route::delete('/produtos/delete/{id},{empresa}', [App\Http\Controllers\ProdutoCo
 
 Route::resource('clientes', App\Http\Controllers\ClienteController::class);
 Route::resource('servicos', App\Http\Controllers\ServicoController::class);
+Route::resource('pacotes', App\Http\Controllers\PacoteController::class);
