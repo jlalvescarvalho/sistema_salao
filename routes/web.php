@@ -32,3 +32,9 @@ Route::delete('/produtos/delete/{id},{empresa}', [App\Http\Controllers\ProdutoCo
 
 Route::resource('clientes', App\Http\Controllers\ClienteController::class);
 Route::resource('servicos', App\Http\Controllers\ServicoController::class);
+Route::resource('pacotes', App\Http\Controllers\PacoteController::class);
+
+Route::resource('contratos', App\Http\Controllers\PacoteController::class)->only([
+    'index', 'store'
+]);
+Route::post('contratos/{id}/cancelar', [App\Http\Controllers\PacoteController::class, 'cancelar'])->name('contratos.cancelar');

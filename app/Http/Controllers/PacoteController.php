@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePacoteRequest;
 use App\Models\Pacote;
+use App\Models\Servico;
 use Illuminate\Http\Request;
 
 class PacoteController extends Controller
@@ -12,7 +14,7 @@ class PacoteController extends Controller
      */
     public function index()
     {
-        return view('pacote.index');
+        return view('pacotes.index');
     }
 
     /**
@@ -20,15 +22,17 @@ class PacoteController extends Controller
      */
     public function create()
     {
-        //
+        return view('pacotes.create', [
+            'servicos' => Servico::select('id', 'nome')->get(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreatePacoteRequest $request)
     {
-        //
+        Pacote::create($request->validated());
     }
 
     /**
