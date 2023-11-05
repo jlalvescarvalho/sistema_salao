@@ -22,10 +22,15 @@ class ServicosDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'servicos.action')
+            ->addColumn('action', function ($row) {
+                $visualizarButton = '<button title="Visualizar" class="btn"><a href="' . route('servicos.show', ['servico' => $row->id]) . '"><i class="fa fa-eye" aria-hidden="true"></i></a></button>';
+                $editarButton = '<button title="Editar" class="btn"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                $deletarButton = '<button title="Deletar" class="btn"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-trash-alt" data-toggle="modal" data-target=".bd-example-modal-lg"></i></a></button>';
+                return $visualizarButton . ' ' . $editarButton . ' ' . $deletarButton;
+            })
             ->setRowId('id');
     }
-
+    // <button title="Visualizar" class="btn"><a href="{{ route('quartos.view', ['id' => $qrt->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></button>
     /**
      * Get the query source of dataTable.
      */
@@ -43,16 +48,12 @@ class ServicosDataTable extends DataTable
             ->setTableId('servicos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
+            ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
 
             ]);
     }
@@ -70,8 +71,6 @@ class ServicosDataTable extends DataTable
             Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),
             Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
             Column::computed('action')
-                ->exportable(true)
-                ->printable(true)
                 ->addClass('text-center')->title('Ações'),
 
         ];
