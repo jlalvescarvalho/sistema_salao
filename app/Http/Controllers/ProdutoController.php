@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use app\Http\Services\ProdutoService;
 use App\Models\Produto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProdutoController extends Controller
 {
@@ -12,7 +14,10 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return view('produto.index');
+        $empresa = Auth::user();
+        $ProdutoService = new ProdutoService();
+        $produtos = $ProdutoService->TodosProdutos($empresa->id_empresa);
+        return view('produto.index', ['produtos' => $produtos]);
     }
 
     /**
@@ -20,7 +25,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        //
+        return view('produto.create');
     }
 
     /**
@@ -28,7 +33,6 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**

@@ -23,7 +23,9 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        return view('servicos.create');
+        return view('servicos.create', [
+            'servicos' => Servico::all(),
+        ]);
     }
 
     /**
@@ -39,17 +41,17 @@ class ServicoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Servico $servico)
+    public function show($id)
     {
-        //
+        return view('servicos.show', array('servico' => Servico::find($id)));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Servico $servico)
+    public function edit($id)
     {
-        //
+        //code
     }
 
     /**

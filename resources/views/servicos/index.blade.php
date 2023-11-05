@@ -3,14 +3,16 @@
 @section('title', 'Serviços')
 
 @section('content_header')
-    <h1>Servicos</h1>
+<div style="padding-bottom: 1px;"></div>
 @stop
 
 @section('content')
+
 <a href="{{ route('servicos.create') }}"><button class="btn btn-primary">+ Novo</button></a>
 <br><br> 
     {{ $dataTable->table() }}
 @stop
+
 
 @section('css')
     <link href="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.css" rel="stylesheet">
