@@ -3,7 +3,7 @@
 @section('title', 'Cadastro de Serviços')
 
 @section('content_header')
-    <h1 class="page-title">Cadastro de Serviços</h1>
+    <h1 class="page-title">{{!$servicos ? "Cadastro de Serviços" : "Editar Serviço"}} </h1>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
         <div class="form-group">
             <label for="nome">Nome</label>
             <input id="nome" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror"
-                value="{{ old('nome') }}" placeholder="Informe o nome do serviço" required>
+                value="{{ !$servicos ? old('nome') : $servicos->nome }}" placeholder="Informe o nome do serviço" required>
             @error('nome')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -20,7 +20,7 @@
         <div class="form-group">
             <label for="descricao">Descrição</label>
             <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror"
-                value="{{ old('descricao') }}" rows="3" placeholder="Descreva o serviço" required></textarea>
+                value="{{ !$servicos ? old('descricao') : $servicos->descricao }}" rows="3" placeholder="Descreva o serviço" required></textarea>
             @error('descricao')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
@@ -35,7 +35,7 @@
                         </span>
                     </div>
                     <input id="preco_custo" name="preco_custo"
-                        class="form-control @error('preco_custo') is-invalid @enderror" value="{{ old('preco_custo') }}"
+                        class="form-control @error('preco_custo') is-invalid @enderror" value="{{ !$servicos ? old('preco_custo') : $servicos->preco_custo }}"
                         type="number" class="form-control" min="0" max="999999" placeholder="0.00">
                 </div>
                 @error('preco_custo')
@@ -51,7 +51,7 @@
                         </span>
                     </div>
                     <input id="preco_venda" name="preco_venda"
-                        class="form-control @error('preco_venda') is-invalid @enderror" value="{{ old('preco_venda') }}"
+                        class="form-control @error('preco_venda') is-invalid @enderror" value="{{ !$servicos ? old('preco_venda') : $servicos->preco_venda }}"
                         type="number" class="form-control" min="0" max="999999" placeholder="0.00" required>
                 </div>
                 @error('preco_venda')

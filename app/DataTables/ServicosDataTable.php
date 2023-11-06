@@ -22,10 +22,14 @@ class ServicosDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'servicos.action')
+            ->addColumn('action', function ($row) {
+                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                $deletarButton = '<form method="POST" action="' . route('servicos.destroy', ['servico' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
+                return $editarButton . $deletarButton;
+            })
             ->setRowId('id');
     }
-
+    // <button title="Visualizar" class="btn"><a href="{{ route('quartos.view', ['id' => $qrt->id]) }}"><i class="fa fa-eye" aria-hidden="true"></i></a></button>
     /**
      * Get the query source of dataTable.
      */
@@ -43,16 +47,12 @@ class ServicosDataTable extends DataTable
             ->setTableId('servicos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            //->dom('Bfrtip')
+            // ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
                 Button::make('pdf'),
                 Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
 
             ]);
     }
@@ -70,8 +70,6 @@ class ServicosDataTable extends DataTable
             Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),
             Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
             Column::computed('action')
-                ->exportable(true)
-                ->printable(true)
                 ->addClass('text-center')->title('Ações'),
 
         ];
