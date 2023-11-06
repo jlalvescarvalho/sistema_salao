@@ -23,14 +23,8 @@
     @yield('adminlte_css_pre')
 
     <style>
-        .page-title {
-            margin-left: 1rem !important;
-        }
-
         .custom-form {
             padding-bottom: 1rem;
-            padding-left: 1rem;
-            padding-right: 1rem;
         }
     </style>
 

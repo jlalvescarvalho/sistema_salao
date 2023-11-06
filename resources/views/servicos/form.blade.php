@@ -65,9 +65,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        @if ($servico->exists) Salvar alteração @else Cadastrar @endif
-    </button>
+    <x-form-buttons :entity="$servico" />
     </form>
 @stop
 

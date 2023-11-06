@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateClienteRequest extends FormRequest
+class CreateUpdateClienteRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,9 +16,9 @@ class CreateClienteRequest extends FormRequest
         return [
             'nome' => 'required|min:3|max:50',
             'telefone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'cpf' => 'required|size:11|unique:clientes,cpf',
+            'cpf' => 'required|size:11|unique:clientes,cpf,' . $this->route('cliente')?->id,
             'data_nascimento' => 'nullable|date_format:Y-m-d|before:today',
-            'endereco' => 'sometimes|array',
+            'endereco' => 'nullable|array',
             'endereco.rua' => 'required_with:endereco|min:3|max:50',
             'endereco.numero' => 'required_with:endereco|string|min:1|max:10',
             'endereco.bairro' => 'required_with:endereco|min:3|max:50',
@@ -40,7 +40,7 @@ class CreateClienteRequest extends FormRequest
             }
 
             if (!$temAlgum) {
-                $this->request->remove('endereco');
+                $this->merge(['endereco' => null]);
             } else {
                 $this->merge([
                     'endereco' => [
