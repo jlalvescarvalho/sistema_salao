@@ -15,9 +15,9 @@ class ClienteSeeder extends Seeder
     {
         Cliente::create([
             'nome' => 'joao lucas',
-            'telefone' => '87 981753993',
-            'cpf' => '123.123.133-45',
-            'data_nascimento' => '15/11/1992',
+            'telefone' => '87981753993',
+            'cpf' => '12312313345',
+            'data_nascimento' => '1992-11-15',
             'id_endereco' => 1,
         ]);
     }

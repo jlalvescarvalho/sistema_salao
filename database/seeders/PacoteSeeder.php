@@ -14,6 +14,7 @@ class PacoteSeeder extends Seeder
     public function run(): void
     {
         Pacote::create([
+            'nome' => 'teste',
             'descricao' => 'pacote master',
             'valor' => '100',
             'qtd_sessoes' => '5',
