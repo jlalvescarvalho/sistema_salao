@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\ServicosDataTable;
 use App\Http\Requests\CreateServicoRequest;
 use App\Models\Servico;
+use Exception;
 use Illuminate\Http\Request;
 
 class ServicoController extends Controller
@@ -51,7 +52,10 @@ class ServicoController extends Controller
      */
     public function edit($id)
     {
-        //code
+        $servico = Servico::find($id);
+        return view('servicos.create', [
+            'servicos' => $servico,
+        ]);
     }
 
     /**
@@ -65,8 +69,14 @@ class ServicoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Servico $servico)
+    public function destroy($id)
     {
-        //
+        try {
+            $servico = Servico::find($id);
+            $servico->delete();
+            return redirect()->route('servicos.index');
+        } catch (Exception $e) {
+            return redirect()->route('servicos.index');
+        }
     }
 }

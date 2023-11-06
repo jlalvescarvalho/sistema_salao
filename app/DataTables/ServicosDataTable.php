@@ -23,10 +23,9 @@ class ServicosDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $visualizarButton = '<button title="Visualizar" class="btn"><a href="' . route('servicos.show', ['servico' => $row->id]) . '"><i class="fa fa-eye" aria-hidden="true"></i></a></button>';
-                $editarButton = '<button title="Editar" class="btn"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
-                $deletarButton = '<button title="Deletar" class="btn"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-trash-alt" data-toggle="modal" data-target=".bd-example-modal-lg"></i></a></button>';
-                return $visualizarButton . ' ' . $editarButton . ' ' . $deletarButton;
+                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                $deletarButton = '<form method="POST" action="' . route('servicos.destroy', ['servico' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
+                return $editarButton . $deletarButton;
             })
             ->setRowId('id');
     }

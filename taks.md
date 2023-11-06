@@ -1,8 +1,8 @@
-# [pendente] Usuários
+<!-- # [pendente] Usuários
 [] criar 
 [] editar 
 [] excluir
-[] login
+[] login -->
 # [pendente] Clientes
 Os clientes devem conter os dados descritos do diagrama.
 [X] criar 
@@ -12,7 +12,7 @@ Os clientes devem conter os dados descritos do diagrama.
 Os serviços devem conter os dados descritos do diagrama.
 [X] criar 
 [] editar 
-[] excluir
+[X] excluir
 # [pendente] Pacotes
 Os serviços devem conter os dados descritos do diagrama.
 [X] criar 
