@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateClienteRequest;
+use App\Http\Requests\CreateUpdateClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -21,15 +21,17 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('clientes.create');
+        return view('clientes.form', [
+            'pageTitle' => 'Cadastrar Cliente'
+        ])->withCliente(new Cliente());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateClienteRequest $request)
+    public function store(CreateUpdateClienteRequest $request)
     {
-        $dados = $request->all();
+        $dados = $request->validated();
         $cliente = Cliente::create([
             'nome' => $dados['nome'],
             'telefone' => $dados['telefone'],
@@ -38,7 +40,7 @@ class ClienteController extends Controller
         ]);
 
         if (isset($dados['endereco'])) {
-            $cliente->endereco()->create([
+            $cliente->endereco()->create([ // FIXME: Não está funcionando
                 'rua' => $dados['endereco']['rua'],
                 'numero' => $dados['endereco']['numero'],
                 'bairro' => $dados['endereco']['bairro'],
@@ -64,15 +66,30 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        $cliente->load('endereco');
+        return view('clientes.form', [
+            'pageTitle' => 'Editar Cliente'
+        ])->withCliente($cliente);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(CreateUpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        $dados = $request->validated();
+        $cliente->update([
+            'nome' => $dados['nome'],
+            'telefone' => $dados['telefone'],
+            'cpf' => $dados['cpf'],
+            'data_nascimento' => $dados['data_nascimento'],
+        ]);
+
+        if (array_key_exists('endereco', $dados)) {
+            $cliente->endereco()->update($dados['endereco']);
+        }
+
+        return redirect()->route('clientes.index');
     }
 
     /**

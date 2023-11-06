@@ -17,7 +17,7 @@ return new class() extends Migration
             $table->string("telefone", 20)->nullable();
             $table->string("cpf", 11)->nullable();
             $table->date("data_nascimento")->nullable();
-            $table->unsignedBigInteger("id_endereco");
+            $table->unsignedBigInteger("id_endereco")->nullable();
             $table->foreign("id_endereco")->references('id')->on('enderecos');
             $table->timestamps();
         });

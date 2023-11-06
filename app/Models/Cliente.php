@@ -18,6 +18,6 @@ class Cliente extends Model
 
     public function endereco(): HasOne
     {
-        return $this->hasOne(Endereco::class);
+        return $this->hasOne(Endereco::class, 'id', 'id_endereco');
     }
 }
