@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -19,5 +20,11 @@ class Cliente extends Model
     public function endereco(): HasOne
     {
         return $this->hasOne(Endereco::class);
+    }
+    
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i:s');
+        
     }
 }

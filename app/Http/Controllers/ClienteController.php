@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ClienteDataTable;
 use App\Http\Requests\CreateClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use App\DataTables\ServicosDataTable;
 
 class ClienteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ClienteDataTable $dataTable)
     {
-        return view('clientes.index');
+        return $dataTable->render('clientes.index');
     }
 
     /**

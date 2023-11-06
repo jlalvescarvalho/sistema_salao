@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\PacotesDataTable;
 use App\Http\Requests\CreatePacoteRequest;
 use App\Models\Pacote;
 use App\Models\Servico;
@@ -12,11 +13,11 @@ class PacoteController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PacotesDataTable $dataTable)
     {
-        return view('pacotes.index');
+        return $dataTable->render('pacotes.index');
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

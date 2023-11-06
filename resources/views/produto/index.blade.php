@@ -7,32 +7,23 @@
 @stop
 
 @section('content')
-    <table id="produtos" class="display">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>CODBARRAS</th>
-                <th>DESCRIÇÃO</th>
-                <th>UN</th>
-                <th>PREÇO CUSTO</th>
-                <th>PREÇO VENDA</th>
-                <th>ESTOQUE</th>
-                <th>AÇÕES</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Row 1 Data 1</td>
-                <td>Row 1 Data 2</td>
-            </tr>
-        </tbody>
-    </table>
+
+<a href="{{ route('produtos.create') }}"><button class="btn btn-primary">+ Novo</button></a>
+<br><br> 
+    {{ $dataTable->table() }}
 @stop
 
+
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.css" rel="stylesheet">
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.13.7/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/dataTables.buttons.min.js"></script>
+    <script src="/vendor/datatables/buttons.server-side.js"></script>
 @stop
+
+@push('js')
+    {{ $dataTable->scripts(attributes: ['type' => 'module']) }}
+@endpush

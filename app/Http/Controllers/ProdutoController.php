@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ProdutosDataTable;
 use app\Http\Services\ProdutoService;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -12,12 +13,9 @@ class ProdutoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProdutosDataTable $dataTable)
     {
-        $empresa = Auth::user();
-        $ProdutoService = new ProdutoService();
-        $produtos = $ProdutoService->TodosProdutos($empresa->id_empresa);
-        return view('produto.index', ['produtos' => $produtos]);
+        return $dataTable->render('produto.index');
     }
 
     /**

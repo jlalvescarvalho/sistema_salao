@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,4 +19,9 @@ class Agendamento extends Model
         'id_cliente',
         'id_empresa'
     ];
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->format('Y-m-d H:i:s');
+    }
 }
