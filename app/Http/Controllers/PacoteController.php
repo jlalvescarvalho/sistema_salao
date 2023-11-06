@@ -65,6 +65,7 @@ class PacoteController extends Controller
      */
     public function destroy(Pacote $pacote)
     {
-        //
+        $pacote->delete();
+        return redirect()->route('pacotes.index');
     }
 }

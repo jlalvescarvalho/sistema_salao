@@ -23,8 +23,8 @@ class PacotesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
-                $deletarButton = '<form method="POST" action="' . route('servicos.destroy', ['servico' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
+                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('pacotes.edit', ['pacote' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                $deletarButton = '<form method="POST" action="' . route('pacotes.destroy', ['pacote' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
                 return $editarButton . $deletarButton;
             })
             ->setRowId('id');

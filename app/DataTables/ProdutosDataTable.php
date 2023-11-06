@@ -23,8 +23,8 @@ class ProdutosDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('servicos.edit', ['servico' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
-                $deletarButton = '<form method="POST" action="' . route('servicos.destroy', ['servico' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
+                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('produtos.edit', ['produto' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                $deletarButton = '<form method="POST" action="' . route('produtos.destroy', ['produto' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
                 return $editarButton . $deletarButton;
             })
             ->setRowId('id');
@@ -69,7 +69,7 @@ class ProdutosDataTable extends DataTable
            
             Column::make('id')->title('ID'),
             Column::make('codbarra')->title(''),
-            Column::make('descricao')->title('Descricao'),
+            Column::make('descricao')->title('Descrição'),
             Column::make('un')->title('Un'),
             Column::make('preco_custo')->title('Custo')->renderJs('number', '.', ',', '2', ''),
             Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),

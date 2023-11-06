@@ -36,7 +36,7 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id, $empresa)
+    public function show($id)
     {
         //
     }
@@ -44,7 +44,7 @@ class ProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id, $empresa)
+    public function edit($id)
     {
         //
     }
@@ -60,8 +60,9 @@ class ProdutoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, $empresa)
+    public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+        return redirect()->route('produtos.index');
     }
 }
