@@ -65,9 +65,12 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">
-        @if ($servico->exists) Salvar alteração @else Cadastrar @endif
-    </button>
+    <div class="d-block d-lg-flex justify-content-lg-between">
+        <button type="submit" class="btn btn-primary">
+            @if ($servico->exists) Salvar alteração @else Cadastrar @endif
+        </button>
+        <a type="button" class="btn btn-secondary" href="{{ url()->previous() }}">Voltar</a>
+    </div>
     </form>
 @stop
 
