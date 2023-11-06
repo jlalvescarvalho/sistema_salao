@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ad14816df2eceb110a94b0c982acdf5",
+    "content-hash": "d40ce8cb2ff1660d3ab8ff3962395082",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -6735,16 +6735,16 @@
         },
         {
             "name": "yajra/laravel-datatables-html",
-            "version": "v10.10.0",
+            "version": "v10.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yajra/laravel-datatables-html.git",
-                "reference": "2d7e73cc627923c56cdb26d04863ddc07fb8f1e6"
+                "reference": "f1154f4ba0c3d228ec70a965315a471e57ca57f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/2d7e73cc627923c56cdb26d04863ddc07fb8f1e6",
-                "reference": "2d7e73cc627923c56cdb26d04863ddc07fb8f1e6",
+                "url": "https://api.github.com/repos/yajra/laravel-datatables-html/zipball/f1154f4ba0c3d228ec70a965315a471e57ca57f2",
+                "reference": "f1154f4ba0c3d228ec70a965315a471e57ca57f2",
                 "shasum": ""
             },
             "require": {
@@ -6792,7 +6792,7 @@
             ],
             "support": {
                 "issues": "https://github.com/yajra/laravel-datatables-html/issues",
-                "source": "https://github.com/yajra/laravel-datatables-html/tree/v10.10.0"
+                "source": "https://github.com/yajra/laravel-datatables-html/tree/v10.11.0"
             },
             "funding": [
                 {
@@ -6808,7 +6808,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-11-04T01:30:28+00:00"
+            "time": "2023-11-06T05:50:47+00:00"
         },
         {
             "name": "yajra/laravel-datatables-oracle",
