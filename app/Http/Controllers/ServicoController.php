@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ServicosDataTable;
-use App\Http\Requests\CreateServicoRequest;
+use App\Http\Requests\CreateUpdateServicoRequest;
 use App\Models\Servico;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +15,6 @@ class ServicoController extends Controller
      */
     public function index(ServicosDataTable $dataTable)
     {
-
         return $dataTable->render('servicos.index');
     }
 
@@ -24,59 +23,45 @@ class ServicoController extends Controller
      */
     public function create()
     {
-        return view('servicos.create', [
-            'servicos' => Servico::all(),
-        ]);
+        return view('servicos.form', [
+            'pageTitle' => 'Cadastro de Serviços'
+        ])->withServico(new Servico());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateServicoRequest $request)
+    public function store(CreateUpdateServicoRequest $request)
     {
-        $dados = $request->validated();
-        Servico::create($dados);
+        Servico::create($request->validated());
         return redirect()->route('servicos.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id)
-    {
-        return view('servicos.show', array('servico' => Servico::find($id)));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Servico $servico)
     {
-        $servico = Servico::find($id);
-        return view('servicos.create', [
-            'servicos' => $servico,
-        ]);
+        return view('servicos.form', [
+            'pageTitle' => 'Editar Serviço'
+        ])->withServico($servico);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Servico $servico)
+    public function update(CreateUpdateServicoRequest $request, Servico $servico)
     {
-        //
+        $servico->update($request->validated());
+        return redirect()->route('servicos.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Servico $servico)
     {
-        try {
-            $servico = Servico::find($id);
-            $servico->delete();
-            return redirect()->route('servicos.index');
-        } catch (Exception $e) {
-            return redirect()->route('servicos.index');
-        }
+        $servico->delete();
+        return redirect()->route('servicos.index');
     }
 }
