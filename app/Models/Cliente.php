@@ -15,6 +15,7 @@ class Cliente extends Model
         'telefone',
         'cpf',
         'data_nascimento',
+        'id_endereco',
     ];
 
     public function endereco(): HasOne

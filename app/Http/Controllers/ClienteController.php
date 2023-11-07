@@ -7,6 +7,7 @@ use App\Http\Requests\CreateUpdateClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\DataTables\ServicosDataTable;
+use App\Models\Endereco;
 
 class ClienteController extends Controller
 {
@@ -34,15 +35,8 @@ class ClienteController extends Controller
     public function store(CreateUpdateClienteRequest $request)
     {
         $dados = $request->validated();
-        $cliente = Cliente::create([
-            'nome' => $dados['nome'],
-            'telefone' => $dados['telefone'],
-            'cpf' => $dados['cpf'],
-            'data_nascimento' => $dados['data_nascimento'],
-        ]);
-
         if (isset($dados['endereco'])) {
-            $cliente->endereco()->create([ // FIXME: Não está funcionando
+            $endereco = Endereco::create([
                 'rua' => $dados['endereco']['rua'],
                 'numero' => $dados['endereco']['numero'],
                 'bairro' => $dados['endereco']['bairro'],
@@ -50,9 +44,15 @@ class ClienteController extends Controller
                 'estado' => $dados['endereco']['estado'],
                 'cep' => $dados['endereco']['cep'],
             ]);
-        }
-
-        return redirect()->route('clientes.index');
+            $cliente = Cliente::create([
+                'nome' => $dados['nome'],
+                'telefone' => $dados['telefone'],
+                'cpf' => $dados['cpf'],
+                'data_nascimento' => $dados['data_nascimento'],
+                'id_endereco' => $endereco->id,
+            ]);
+      }
+      return redirect()->route('clientes.index');
     }
 
     /**
