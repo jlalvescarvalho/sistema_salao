@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PacotesDataTable;
-use App\Http\Requests\CreatePacoteRequest;
+use App\Http\Requests\CreateUpdatePacoteRequest;
 use App\Models\Pacote;
 use App\Models\Servico;
-use Illuminate\Http\Request;
 
 class PacoteController extends Controller
 {
@@ -17,21 +16,23 @@ class PacoteController extends Controller
     {
         return $dataTable->render('pacotes.index');
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('pacotes.create', [
+        return view('pacotes.form', [
+            'pageTitle' => 'Cadastrar Pacote',
             'servicos' => Servico::select('id', 'nome')->get(),
+            'pacote' => new Pacote(),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreatePacoteRequest $request)
+    public function store(CreateUpdatePacoteRequest $request)
     {
         Pacote::create($request->validated());
         return redirect()->route('pacotes.index');
@@ -50,15 +51,20 @@ class PacoteController extends Controller
      */
     public function edit(Pacote $pacote)
     {
-        //
+        return view('pacotes.form', [
+            'pageTitle' => 'Editar Pacote',
+            'servicos' => Servico::select('id', 'nome')->get(),
+            'pacote' => $pacote,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pacote $pacote)
+    public function update(CreateUpdatePacoteRequest $request, Pacote $pacote)
     {
-        //
+        $pacote->update($request->validated());
+        return redirect()->route('pacotes.index');
     }
 
     /**
