@@ -26,6 +26,8 @@ Route::resource('produtos', App\Http\Controllers\ProdutoController::class);
 Route::resource('clientes', App\Http\Controllers\ClienteController::class);
 Route::resource('servicos', App\Http\Controllers\ServicoController::class);
 Route::resource('pacotes', App\Http\Controllers\PacoteController::class);
+Route::resource('contratos', App\Http\Controllers\ContratoPacoteController::class);
+
 
 Route::resource('contratos', App\Http\Controllers\PacoteController::class)->only([
     'index', 'store'

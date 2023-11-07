@@ -10,7 +10,7 @@ class ContratoPacoteController extends Controller
 {
     public function index()
     {
-        //
+        return view('contratos.index');
     }
 
     public function store(Request $request)

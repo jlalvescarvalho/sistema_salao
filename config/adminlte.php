@@ -321,6 +321,11 @@ return [
             'url'         => '/pacotes',
             'icon'        => 'fa fa-crosshairs',
         ],
+        [
+            'text'        => 'Contratos',
+            'url'         => '/contratos',
+            'icon'        => 'fa fa-crosshairs',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',
