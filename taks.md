@@ -22,3 +22,7 @@ Os serviços devem conter os dados descritos do diagrama.
 [] listar
 [X] criar 
 [] cancelar
+# [pendente] Produtos
+[X] listar
+[X] criar 
+[] cancelar

@@ -256,7 +256,7 @@ return [
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => false,//'register', //mudar para false para desavidar o register
+    'register_url' => false, //'register', //mudar para false para desavidar o register
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
@@ -376,6 +376,7 @@ return [
     'plugins' => [
         'Datatables' => [
             'active' => false,
+            'language' => 'https://cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json',
             'files' => [
                 [
                     'type' => 'js',

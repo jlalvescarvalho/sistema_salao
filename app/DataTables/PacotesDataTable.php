@@ -44,6 +44,7 @@ class PacotesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
+            ->language(config('adminlte.plugins.Datatables.language'))
             ->setTableId('pacotes-table')
             ->columns($this->getColumns())
             ->minifiedAjax()

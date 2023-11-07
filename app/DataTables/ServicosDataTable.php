@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\Servico;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use JeroenNoten\LaravelAdminLte\AdminLte;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -44,6 +45,7 @@ class ServicosDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
+            ->language(config('adminlte.plugins.Datatables.language'))
             ->setTableId('servicos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()

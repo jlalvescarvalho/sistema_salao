@@ -44,6 +44,7 @@ class ProdutosDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
+            ->language(config('adminlte.plugins.Datatables.language'))
             ->setTableId('produtos-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
