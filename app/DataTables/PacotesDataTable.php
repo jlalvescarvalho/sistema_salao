@@ -69,13 +69,13 @@ class PacotesDataTable extends DataTable
         return [
 
             Column::make('id')->title('ID'),
-            Column::make('nome')->title('Nome'),
+            // Column::make('nome')->title('Nome'),
             Column::make('descricao')->title('Descrição'),
             Column::make('valor')->title('Valor')->renderJs('number', '.', ',', '2', ''),
             Column::make('qtd_sessoes')->title('Sessões'),
             Column::make('validade')->title('Validade(dias)'),
             Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
-            Column::computed('action')->addClass('text-center')->title('Ações')->width('90px'),
+            Column::computed('action')->addClass('text-center')->title('Ações'),
         ];
     }
 
