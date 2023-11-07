@@ -24,8 +24,7 @@
     </div>
     <div class="form-group">
         <label for="descricao">Descrição</label>
-        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror"
-            value="{{ old('descricao', $servico->descricao) }}" rows="3" placeholder="Descreva o serviço" required></textarea>
+        <textarea id="descricao" name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="3" placeholder="Descreva o serviço" required>{{ old('descricao', $servico->descricao) }}</textarea>
         @error('descricao')
             <small class="text-danger">{{ $message }}</small>
         @enderror
@@ -70,13 +69,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
     <style>
         #descricao {
             resize: none;
         }
     </style>
-@sto
+@stop
 
 @section('js')
 @stop

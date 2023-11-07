@@ -25,8 +25,9 @@ class ClienteController extends Controller
     public function create()
     {
         return view('clientes.form', [
-            'pageTitle' => 'Cadastrar Cliente'
-        ])->withCliente(new Cliente());
+            'pageTitle' => 'Cadastrar Cliente',
+            'cliente' => new Cliente(),
+        ]);
     }
 
     /**
@@ -51,8 +52,8 @@ class ClienteController extends Controller
                 'data_nascimento' => $dados['data_nascimento'],
                 'id_endereco' => $endereco->id,
             ]);
-      }
-      return redirect()->route('clientes.index');
+        }
+        return redirect()->route('clientes.index');
     }
 
     /**
@@ -70,8 +71,9 @@ class ClienteController extends Controller
     {
         $cliente->load('endereco');
         return view('clientes.form', [
-            'pageTitle' => 'Editar Cliente'
-        ])->withCliente($cliente);
+            'pageTitle' => 'Editar Cliente',
+            'cliente' => $cliente,
+        ]);
     }
 
     /**

@@ -44,20 +44,20 @@ class PacotesDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('pacotes-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('pacotes-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(1)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -66,10 +66,10 @@ class PacotesDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            
+
             Column::make('id')->title('ID'),
             Column::make('nome')->title('Nome'),
-            Column::make('descricao')->title('Descrição'),
+            Column::make('descricao')->title('Descrição')->width(350),
             Column::make('valor')->title('Valor')->renderJs('number', '.', ',', '2', ''),
             Column::make('qtd_sessoes')->title('Qtde. Sessões'),
             Column::make('validade')->title('Validade'),
