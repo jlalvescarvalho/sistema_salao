@@ -75,8 +75,7 @@ class ProdutosDataTable extends DataTable
             Column::make('preco_venda')->title('Venda')->renderJs('number', '.', ',', '2', ''),
             Column::make('estoqueinicial')->title('Estoque'),
             Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
-            Column::computed('action')
-                ->addClass('text-center')->title('Ações'),
+            Column::computed('action')->addClass('text-center')->title('Ações')->width('90px'),
 
         ];
     }
