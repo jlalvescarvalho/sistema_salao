@@ -15,7 +15,7 @@ class ProdutoController extends Controller
      */
     public function index(ProdutosDataTable $dataTable)
     {
-        return $dataTable->render('produto.index');
+        return $dataTable->render('produtos.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('produto.create');
+        return view('produtos.create');
     }
 
     /**

@@ -16,7 +16,7 @@ Os serviços devem conter os dados descritos do diagrama.
 # [pendente] Pacotes
 Os serviços devem conter os dados descritos do diagrama.
 [X] criar 
-[] editar 
+[X] editar 
 [X] excluir (apenas se não tiver nenhum uso, caso queira, pode desativar o pacote quando editar)
 # [pendente] Contratos
 [] listar
