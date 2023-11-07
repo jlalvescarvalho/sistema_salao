@@ -23,4 +23,14 @@ class Endereco extends Model
     {
         return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
+
+    public function setCepAttribute($value)
+    {
+        $this->attributes['cep'] = preg_replace('/[^0-9]/', '', $value);
+    }
+
+    public function getCepAttribute($value)
+    {
+        return substr($value, 0, 5) . '-' . substr($value, 5, 3);
+    }
 }

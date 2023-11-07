@@ -15,7 +15,7 @@ class CreateUpdateClienteRequest extends FormRequest
     {
         return [
             'nome' => 'required|min:3|max:50',
-            'telefone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'telefone' => 'required|string|size:11',
             'cpf' => 'required|size:11|unique:clientes,cpf,' . $this->route('cliente')?->id,
             'data_nascimento' => 'nullable|date_format:Y-m-d|before:today',
             'endereco' => 'nullable|array',
@@ -45,7 +45,8 @@ class CreateUpdateClienteRequest extends FormRequest
                 $this->merge([
                     'endereco' => [
                         ...$this->get("endereco"),
-                        'estado' => strtoupper($this->get('endereco')['estado'])
+                        'estado' => strtoupper($this->get('endereco')['estado']),
+                        'cep' => preg_replace('/[^0-9]/', '', $this->get('endereco')['cep']),
                     ],
                 ]);
             }

@@ -44,20 +44,20 @@ class ProdutosDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('produtos-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('produtos-table')
+            ->columns($this->getColumns())
+            ->minifiedAjax()
+            //->dom('Bfrtip')
+            ->orderBy(2)
+            ->selectStyleSingle()
+            ->buttons([
+                Button::make('excel'),
+                Button::make('csv'),
+                Button::make('pdf'),
+                Button::make('print'),
+                Button::make('reset'),
+                Button::make('reload')
+            ]);
     }
 
     /**
@@ -66,9 +66,9 @@ class ProdutosDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-           
+
             Column::make('id')->title('ID'),
-            Column::make('codbarra')->title(''),
+            Column::make('codbarra')->title('Código de Barras'),
             Column::make('descricao')->title('Descrição'),
             Column::make('un')->title('Un'),
             Column::make('preco_custo')->title('Custo')->renderJs('number', '.', ',', '2', ''),
