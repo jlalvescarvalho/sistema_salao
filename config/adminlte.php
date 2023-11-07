@@ -256,7 +256,7 @@ return [
     'dashboard_url' => 'home',
     'logout_url' => 'logout',
     'login_url' => 'login',
-    'register_url' => 'register', //mudar para false para desavidar o register
+    'register_url' => false,//'register', //mudar para false para desavidar o register
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
     'profile_url' => false,
@@ -321,17 +321,17 @@ return [
             'url'         => '/pacotes',
             'icon'        => 'fa fa-crosshairs',
         ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => '/empresa/show',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'Usuários',
-            'url'  => '/users',
-            'icon' => 'fas fa-fw fa-user',
-        ],
+        // ['header' => 'account_settings'],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => '/empresa/show',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
+        // [
+        //     'text' => 'Usuários',
+        //     'url'  => '/users',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
     ],
 
     /*
