@@ -16,6 +16,7 @@ class Pacote extends Model
         'valor',
         'qtd_sessoes',
         'validade',
+        'id_servico',
     ];
 
     public function getCreatedAtAttribute($value)

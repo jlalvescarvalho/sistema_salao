@@ -76,7 +76,7 @@
             resize: none;
         }
     </style>
-@stop
+@sto
 
 @section('js')
 @stop

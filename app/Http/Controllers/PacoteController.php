@@ -34,6 +34,7 @@ class PacoteController extends Controller
     public function store(CreatePacoteRequest $request)
     {
         Pacote::create($request->validated());
+        return redirect()->route('pacotes.index');
     }
 
     /**
