@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProdutosDataTable;
+use App\Http\Requests\CreateUpdateProdutoRequest;
 use app\Http\Services\ProdutoService;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -23,14 +24,19 @@ class ProdutoController extends Controller
      */
     public function create()
     {
-        return view('produtos.create');
+        return view('produtos.form', [
+            'pageTitle' => 'Cadastrar Produto',
+            'produto' => new Produto(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateUpdateProdutoRequest $request)
     {
+        Produto::create($request->validated());
+        return redirect()->route('produtos.index');
     }
 
     /**
@@ -44,17 +50,21 @@ class ProdutoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Produto $produto)
     {
-        //
+        return view('produtos.form', [
+            'pageTitle' => 'Editar Produto',
+            'produto' => $produto,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(CreateUpdateProdutoRequest $request, Produto $produto)
     {
-        //
+        $produto->update($request->validated());
+        return redirect()->route('produtos.index');
     }
 
     /**

@@ -11,7 +11,7 @@ class Produto extends Model
     use HasFactory;
 
     protected $fillable = [
-        'codbarras',
+        'codbarra',
         'descricao',
         'un',
         'preco_custo',

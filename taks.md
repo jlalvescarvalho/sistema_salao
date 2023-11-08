@@ -8,6 +8,7 @@ Os clientes devem conter os dados descritos do diagrama.
 [X] criar 
 [X] editar 
 [X] excluir
+[X] adicionar botão de mss no whatsapp
 # [pendente] Serviços
 Os serviços devem conter os dados descritos do diagrama.
 [X] criar 
@@ -25,4 +26,4 @@ Os serviços devem conter os dados descritos do diagrama.
 # [pendente] Produtos
 [X] listar
 [X] criar 
-[] cancelar
+[X] excluir
