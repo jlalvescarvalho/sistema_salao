@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Cliente;
+use App\Models\Endereco;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +20,16 @@ class ClienteFactory extends Factory
     {
         return [
             'nome'           => fake()->name(),
-            'cpf'            => fake()->unique()->cpf(),
-            'fone'           => fake()->fone(),
-            'dt_nascimento'  => fake()->dt_nascimento(),
-            'id_endereco'    => fake()->id_endereco(),
+            'cpf'            => fake()->cpf(false),
+            'telefone'           => fake()->cellphoneNumber(false),
+            'data_nascimento'  => fake()->date(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Cliente $cliente) {
+            $cliente->endereco()->save(Endereco::factory()->make());
+        });
     }
 }

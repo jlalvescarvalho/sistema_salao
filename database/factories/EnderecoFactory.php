@@ -17,11 +17,11 @@ class EnderecoFactory extends Factory
     public function definition(): array
     {
         return [
-            'rua'       => fake()->words(),
-            'numero'    => fake()->random_int(2),
-            'bairro'    => fake()->words(),
-            'cidade'    => fake()->words(),
-            'estado'    => fake()->words(2),
+            'rua'       => fake()->words(3, true),
+            'numero'    => fake()->randomNumber(5, true),
+            'bairro'    => fake()->word(),
+            'cidade'    => fake()->word(),
+            'estado'    => fake()->randomElement(['SP', 'RJ', 'MG', 'ES', 'PR', 'SC', 'RS', 'MS', 'MT', 'GO', 'DF', 'BA', 'SE', 'AL', 'PE', 'PB', 'RN', 'CE', 'PI', 'MA', 'PA', 'AP', 'RR', 'AM', 'AC', 'RO', 'TO']),
             'cep'       => fake()->postcode(),
         ];
     }

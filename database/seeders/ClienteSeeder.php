@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Agendamento;
 use App\Models\Cliente;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ClienteSeeder extends Seeder
@@ -13,12 +13,8 @@ class ClienteSeeder extends Seeder
      */
     public function run(): void
     {
-        Cliente::create([
-            'nome' => 'joao lucas',
-            'telefone' => '87981753993',
-            'cpf' => '12312313345',
-            'data_nascimento' => '1992-11-15',
-            'id_endereco' => 1,
-        ]);
+        Cliente::factory(25)
+            ->has(Agendamento::factory()->count(fake()->numberBetween(0, 8)))
+            ->create();
     }
 }
