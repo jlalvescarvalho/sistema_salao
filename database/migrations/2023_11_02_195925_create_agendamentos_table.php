@@ -14,8 +14,9 @@ return new class() extends Migration
         Schema::create('agendamentos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("id_cliente");
+            $table->unsignedBigInteger("id_servico");
             $table->dateTime("data_hora");
-            $table->time("duracao");
+            $table->time("duracao")->nullable();
             $table->enum("status", ["pendente", "concluido", "cancelado", "faltou"])->default("pendente");
 
             $table->string("observacao")->nullable();
@@ -23,6 +24,7 @@ return new class() extends Migration
             $table->dateTime("data_hora_finalizacao")->nullable();
 
             $table->foreign("id_cliente")->references('id')->on('clientes');
+            $table->foreign("id_servico")->references('id')->on('servicos');
             $table->timestamps();
         });
     }

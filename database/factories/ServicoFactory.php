@@ -18,9 +18,9 @@ class ServicoFactory extends Factory
     {
         return [
             'nome'          => fake()->name(),
-            'descricao'     => fake()->descricao(),
-            'preco_custo'   => fake()->floatval(),
-            'preco_venda'   => fake()->floatval(),
+            'descricao'     => fake()->words(3, true),
+            'preco_custo'   => fake()->numberBetween(10, 50),
+            'preco_venda'   => fake()->numberBetween(10, 50),
         ];
     }
 }

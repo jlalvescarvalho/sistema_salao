@@ -23,6 +23,11 @@ class Cliente extends Model
         return $this->hasOne(Endereco::class, 'id', 'id_endereco');
     }
 
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class, 'id_cliente', 'id');
+    }
+
     public function setNomeAttribute($value)
     {
         $this->attributes['nome'] = strtolower($value);

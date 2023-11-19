@@ -11,17 +11,26 @@ class Agendamento extends Model
     use HasFactory;
 
     protected $fillable = [
-        'observacao',
         'data_hora',
         'duracao',
         'status',
-        'descontar_session',
-        'id_cliente',
-        'id_empresa'
+        'observacao',
+        'data_hora_chegada',
+        'data_hora_finalizacao'
     ];
 
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d H:i:s');
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'id_cliente', 'id');
+    }
+
+    public function servico()
+    {
+        return $this->belongsTo(Servico::class, 'id_servico', 'id');
     }
 }

@@ -11,12 +11,12 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('agendamento_servicos', function (Blueprint $table) {
+        Schema::create('agendamento_pacotes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("id_contrato_pacote");
             $table->dateTime("data_hora");
             $table->dateTime("data_minima_cancelamento");
-            $table->time("duracao");
+            $table->time("duracao")->nullable();
             $table->enum("status", ["pendente", "concluido", "cancelado", "faltou"])->default("pendente");
 
             $table->string("observacao")->nullable();
@@ -33,6 +33,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('agendamento_servicos');
+        Schema::dropIfExists('agendamento_pacotes');
     }
 };
