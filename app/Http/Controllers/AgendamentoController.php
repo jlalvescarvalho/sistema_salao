@@ -17,6 +17,7 @@ class AgendamentoController extends Controller
      */
     public function buscar(Request $request)
     {
+
         try {
             $filtros = $request->validate([
                 'status' => ['nullable', Rule::enum(StatusAgendamento::class)],
@@ -47,7 +48,7 @@ class AgendamentoController extends Controller
                 ]);
 
             if (!empty($filtros['status'])) {
-                $query->where('status', $filtros['status']);
+                $query->where('status', 'pendente');
             }
 
             if (!empty($filtros['ano'])) {

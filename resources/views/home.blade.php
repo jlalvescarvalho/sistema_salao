@@ -16,7 +16,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Clientes</span>
                         <span class="info-box-number">
-                            {{ $nClientes}}
+                            {{ $clientes->count() }}
                         </span>
                     </div>
 
@@ -68,6 +68,61 @@
             </div>
         </div>
     </div>
+
+    {{-- MODAL --}}
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agendar Cliente</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="{{ route('agendamentos.store') }}" class="custom-form">
+                        @csrf
+                        <section>
+                            <div class="form-group">
+                                <label for="cliente">Selecione o cliente</label>
+                                <select class="form-control" name="cliente" id="cliente" required>
+                                    @foreach ($clientes as $cliente)
+                                        <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="chegada">Inicio</label>
+                                        <input type="datetime-local" id="chegada" name="chegada" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="saida">Termino</label>
+                                        <input type="datetime-local" id="saida" name="saida" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="observacao">Observação</label>
+                                <textarea id="observacao" type="text" name="observacao"
+                                    class="form-control @error('observacao') is-invalid @enderror" placeholder="Código de Barras" required></textarea>
+                                @error('observacao')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </section>
+                    </form>
+                </div>
+                <div style="text-align: center;"> <button class="btn btn-success" style="width: 40%;"
+                        type="submit">Salvar</button></div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')
@@ -81,15 +136,34 @@
 @stop
 
 @section('js')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+
     <script>
+        $(document).ready(function() {
+            $('#cliente').select2({
+                width: '100%',
+                dropdownParent: $('#modalExemplo')
+            });
+
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
+            var agenda = @json($agendamentos);
+
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 themeSystem: 'bootstrap',
                 headerToolbar: {
-                    start: 'title', 
+                    start: 'title',
                     center: '',
-                    end: 'today prev,next', 
+                    end: 'today prev,next',
                     left: 'prev,next today',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay'
@@ -109,40 +183,20 @@
                 },
 
                 initialView: 'dayGridMonth',
-
+                editable: true,
+                events : agenda,
                 
+  
+
+
             })
             calendar.render();
 
-            const url = new URL(window.location.origin + '/api/agendamentos/buscar');
-            const params = new URLSearchParams();
-            params.append('ano', new Date().getFullYear());
-            params.append('mes', new Date().getMonth() + 1);
-            params.append('status', 'pendente')
-            url.search = params.toString();
-            fetch(url).then(response => response.json()).then(data => {
-                data.agendamentos.forEach(agendamento => {
-                    calendar.addEvent({
-                        title: agendamento.servico.nome,
-                        start: agendamento.data_hora,
-                        data: agendamento,
-                        // end: agendamento.end,
-                        // allDay: agendamento.allDay,
-                        // backgroundColor: agendamento.backgroundColor,
-                        // borderColor: agendamento.borderColor
-                    });
-                });
+            calendar.on('dateClick', function(info) {
+                $('#modalExemplo').modal();
             });
-            // calendar.addEvent(
-            // {
-            //     title          : 'Lunch',
-            //     start          : "2023-11-05 12:00:00",
-            //     end            : "2023-11-05 13:00:00",
-            //     allDay         : false,
-            //     backgroundColor: '#00c0ef', //Info (aqua)
-            //     borderColor    : '#00c0ef' //Info (aqua)
-            // })
 
         });
     </script>
+
 @stop
