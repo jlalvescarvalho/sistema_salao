@@ -23,7 +23,7 @@ return new class() extends Migration
             $table->dateTime("data_hora_chegada")->nullable();
             $table->dateTime("data_hora_finalizacao")->nullable();
 
-            $table->foreign("id_contrato_pacote")->references('id')->on('contrato_pacote')->cascadeOnDelete();
+            $table->foreign("id_contrato_pacote")->references('id')->on('contrato_pacotes')->cascadeOnDelete();
             $table->timestamps();
         });
     }

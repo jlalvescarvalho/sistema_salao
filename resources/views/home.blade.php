@@ -12,12 +12,11 @@
         <div class="col-12 col-lg-4">
             <div class="col-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">CPU Traffic</span>
+                        <span class="info-box-text">Clientes</span>
                         <span class="info-box-number">
-                            10
-                            <small>%</small>
+                            {{ $nClientes}}
                         </span>
                     </div>
 
@@ -27,10 +26,10 @@
 
             <div class="col-12">
                 <div class="info-box mb-3">
-                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-crosshairs"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Likes</span>
-                        <span class="info-box-number">41,410</span>
+                        <span class="info-box-text">Contratos ativos</span>
+                        <span class="info-box-number">{{ $nContratos }}</span>
                     </div>
 
                 </div>
@@ -43,8 +42,8 @@
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Sales</span>
-                        <span class="info-box-number">760</span>
+                        <span class="info-box-text">Agentamentos Pendentes</span>
+                        <span class="info-box-number">{{ $nAgendamentosPendentes }}</span>
                     </div>
 
                 </div>
@@ -55,8 +54,8 @@
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">New Members</span>
-                        <span class="info-box-number">2,000</span>
+                        <span class="info-box-text">Agendamentos Concluidos</span>
+                        <span class="info-box-number">{{ $nAgendamentosConcluidos }}</span>
                     </div>
 
                 </div>
@@ -86,9 +85,33 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
                 themeSystem: 'bootstrap',
-            });
+                headerToolbar: {
+                    start: 'title', 
+                    center: '',
+                    end: 'today prev,next', 
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+
+                },
+                nowIndicator: true,
+
+                locale: 'pt-br',
+                initialView: 'dayGridMonth',
+                showNonCurrentDates: false,
+                buttonText: {
+                    today: 'Hoje',
+                    month: 'mês',
+                    week: 'semana',
+                    day: 'dia',
+                    list: 'lista'
+                },
+
+                initialView: 'dayGridMonth',
+
+                
+            })
             calendar.render();
 
             const url = new URL(window.location.origin + '/api/agendamentos/buscar');
