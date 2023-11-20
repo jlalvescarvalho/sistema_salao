@@ -11,13 +11,14 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('contrato_pacote', function (Blueprint $table) {
+        Schema::create('contratos_pacotes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("id_pacote");
             $table->unsignedBigInteger("id_cliente");
             $table->date("data_contrato");
             $table->date("data_vencimento");
             $table->unsignedTinyInteger("qtd_sessoes");
+            $table->unsignedTinyInteger("qtd_sessoes_restantes");
             $table->enum("status", ["ativo", "vencido", "finalizado", "cancelado"])->default("ativo");
             $table->timestamps();
             $table->foreign("id_cliente")->references("id")->on("clientes")->deleteOnDelete();
@@ -30,6 +31,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contrato_pacote');
+        Schema::dropIfExists('contratos_pacotes');
     }
 };

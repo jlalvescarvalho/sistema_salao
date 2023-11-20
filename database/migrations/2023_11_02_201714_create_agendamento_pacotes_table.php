@@ -15,7 +15,7 @@ return new class() extends Migration
             $table->id();
             $table->unsignedBigInteger("id_contrato_pacote");
             $table->dateTime("data_hora");
-            $table->dateTime("data_minima_cancelamento");
+            $table->dateTime("data_minima_cancelamento")->nullable();
             $table->time("duracao")->nullable();
             $table->enum("status", ["pendente", "concluido", "cancelado", "faltou"])->default("pendente");
 
@@ -23,7 +23,7 @@ return new class() extends Migration
             $table->dateTime("data_hora_chegada")->nullable();
             $table->dateTime("data_hora_finalizacao")->nullable();
 
-            $table->foreign("id_contrato_pacote")->references('id')->on('contrato_pacote')->cascadeOnDelete();
+            $table->foreign("id_contrato_pacote")->references('id')->on('contratos_pacotes')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -28,6 +28,23 @@ class Cliente extends Model
         return $this->hasMany(Agendamento::class, 'id_cliente', 'id');
     }
 
+    public function contratosPacotes()
+    {
+        return $this->hasMany(ContratoPacote::class, 'id_cliente', 'id');
+    }
+
+    public function agendamentosPacotes()
+    {
+        return $this->hasManyThrough(
+            AgendamentoPacote::class,
+            ContratoPacote::class,
+            'id_cliente',
+            'id_contrato_pacote',
+            'id',
+            'id'
+        );
+    }
+
     public function setNomeAttribute($value)
     {
         $this->attributes['nome'] = strtolower($value);
