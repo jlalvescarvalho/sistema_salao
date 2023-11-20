@@ -19,9 +19,7 @@
                             {{ $clientes->count() }}
                         </span>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="col-12">
@@ -81,9 +79,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('agendamentos.store') }}" class="custom-form">
+                    <form method="POST" class="custom-form" id="form_evento">
                         @csrf
                         <section>
+                            {{-- CLIENTE --}}
                             <div class="form-group">
                                 <label for="cliente">Selecione o cliente</label>
                                 <select class="form-control" name="cliente" id="cliente" required>
@@ -92,6 +91,16 @@
                                     @endforeach
                                 </select>
                             </div>
+                            {{-- SERVIÇO --}}
+                            <div class="form-group">
+                                <label for="servico">Selecione o serviço</label>
+                                <select class="form-control" name="servico" id="servico" required>
+                                    @foreach ($servicos as $servico)
+                                        <option value="{{ $servico->id }}">{{ $servico->nome }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            {{-- DATA INICIO E DATA FIM --}}
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -106,20 +115,21 @@
                                     </div>
                                 </div>
                             </div>
-
+                            {{-- OBSERVAÇÃO --}}
                             <div class="form-group">
                                 <label for="observacao">Observação</label>
                                 <textarea id="observacao" type="text" name="observacao"
-                                    class="form-control @error('observacao') is-invalid @enderror" placeholder="Código de Barras" required></textarea>
+                                    class="form-control @error('observacao') is-invalid @enderror" placeholder="Observação" required></textarea>
                                 @error('observacao')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            <div style="text-align: center;"> <button class="btn btn-success" style="width: 40%;"
+                                    type="submit">Salvar</button></div>
                         </section>
                     </form>
                 </div>
-                <div style="text-align: center;"> <button class="btn btn-success" style="width: 40%;"
-                        type="submit">Salvar</button></div>
+
             </div>
         </div>
     </div>
@@ -154,6 +164,7 @@
 
         });
 
+
         document.addEventListener('DOMContentLoaded', function() {
             var agenda = @json($agendamentos);
 
@@ -184,9 +195,9 @@
 
                 initialView: 'dayGridMonth',
                 editable: true,
-                events : agenda,
-                
-  
+                events: agenda,
+
+
 
 
             })

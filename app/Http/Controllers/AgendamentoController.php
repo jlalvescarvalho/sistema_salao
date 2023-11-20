@@ -9,6 +9,7 @@ use App\Models\Agendamento;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use SebastianBergmann\Environment\Console;
 
 class AgendamentoController extends Controller
 {
@@ -76,6 +77,7 @@ class AgendamentoController extends Controller
      */
     public function store(CreateAgendamentoRequest $request)
     {
+
         Agendamento::create($request->validated());
         return response()->json(['message' => 'Agendamento cadastrado com sucesso!'], 201);
     }

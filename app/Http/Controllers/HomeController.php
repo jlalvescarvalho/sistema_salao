@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agendamento;
 use App\Models\Cliente;
 use App\Models\ContratoPacote;
+use App\Models\Servico;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
@@ -33,6 +34,7 @@ class HomeController extends Controller
         $nAgendamentosPendentes = Agendamento::where('status', '=', 'pendente')->count();
         $nAgendamentosConcluidos = Agendamento::where('status', '=', 'concluido')->count();
         $agendamentos = $this->buscar();
+        $servicos = Servico::All();
 
         foreach ($agendamentos as $agenda) {
             $events[] = [
@@ -48,6 +50,7 @@ class HomeController extends Controller
             'nAgendamentosConcluidos' => $nAgendamentosConcluidos,
             'nContratos' => $nContratos,
             'agendamentos' => $events,
+            'servicos' => $servicos,
         ]);
     }
 
