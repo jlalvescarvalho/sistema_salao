@@ -45,14 +45,22 @@ class ClienteController extends Controller
                 'estado' => $dados['endereco']['estado'],
                 'cep' => $dados['endereco']['cep'],
             ]);
-            $cliente = Cliente::create([
+            Cliente::create([
                 'nome' => $dados['nome'],
                 'telefone' => $dados['telefone'],
                 'cpf' => $dados['cpf'],
                 'data_nascimento' => $dados['data_nascimento'],
                 'id_endereco' => $endereco->id,
             ]);
+        } else {
+            Cliente::create([
+                'nome' => $dados['nome'],
+                'telefone' => $dados['telefone'],
+                'cpf' => $dados['cpf'],
+                'data_nascimento' => $dados['data_nascimento'],
+            ]);
         }
+
         return redirect()->route('clientes.index');
     }
 
