@@ -9,7 +9,6 @@ use App\Models\Agendamento;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use SebastianBergmann\Environment\Console;
 
 class AgendamentoController extends Controller
 {
@@ -105,8 +104,8 @@ class AgendamentoController extends Controller
 
     public function concluir(Request $request, Agendamento $agendamento)
     {
-        if ($agendamento->status == 'Concluido') {
-            return response()->json(['message' => 'Agendamento já concluído!'], 400);
+        if ($agendamento->status == StatusAgendamento::Concluido) {
+            return response()->json(['message' => 'Agendamento já concluído!'], 422);
         }
 
         $dados = $request->validate([
@@ -119,6 +118,7 @@ class AgendamentoController extends Controller
             $dados['data_hora_finalizacao'] = now();
         }
 
+        $dados['status'] = StatusAgendamento::Concluido;
         $agendamento->update($dados);
         return response()->json(['message' => 'Agendamento concluído com sucesso!'], 200);
     }
