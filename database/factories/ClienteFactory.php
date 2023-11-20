@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Enums\StatusContratoPacote;
+use App\Models\AgendamentoPacote;
 use App\Models\Cliente;
 use App\Models\Endereco;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -30,6 +32,11 @@ class ClienteFactory extends Factory
     {
         return $this->afterCreating(function (Cliente $cliente) {
             $cliente->endereco()->save(Endereco::factory()->make());
+
+            $contratos = $cliente->contratosPacotes()->where("status", StatusContratoPacote::Ativo)->get();
+            foreach ($contratos as $contrato) {
+                $contrato->agendamentos()->save(AgendamentoPacote::factory()->make());
+            }
         });
     }
 }

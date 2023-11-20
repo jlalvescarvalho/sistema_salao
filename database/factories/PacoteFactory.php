@@ -17,10 +17,11 @@ class PacoteFactory extends Factory
     public function definition(): array
     {
         return [
-            'descricao'     => fake()->words,
-            'valor'         => fake()->randomFloat(2),
-            'qtdeSecoes'    => fake()->random_int(1),
-            'validade'      => fake()->date_create(),
+            'nome' => fake()->name,
+            'descricao' => fake()->text,
+            'valor' => fake()->randomFloat(2, 100, 600),
+            'qtd_sessoes' => fake()->numberBetween(3, 12),
+            'validade' => fake()->randomElement([30, 60, 90, 120]),
         ];
     }
 }

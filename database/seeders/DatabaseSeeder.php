@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Agendamento;
 use App\Models\Cliente;
+use App\Models\ContratoPacote;
+use App\Models\Pacote;
 use App\Models\Servico;
 use Illuminate\Database\Seeder;
 
@@ -16,13 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-
         $servicos = [
             Servico::create([
                 'nome' => 'Limpeza de pele',
@@ -37,6 +32,12 @@ class DatabaseSeeder extends Seeder
                 'preco_venda' => '60',
             ])
         ];
+
+        Pacote::factory()
+            ->for(fake()->randomElement($servicos))
+            ->count(5)
+            ->create();
+
         for ($i = 0; $i < 25; $i++) {
             Cliente::factory()
                 ->has(
@@ -44,14 +45,16 @@ class DatabaseSeeder extends Seeder
                         ->for(fake()->randomElement($servicos))
                         ->count(fake()->numberBetween(0, 8))
                 )
+                ->hasContratosPacotes(
+                    ContratoPacote::factory()
+                        ->count(fake()->numberBetween(0, 2))
+                )
                 ->create();
         }
-
 
         $this->call([
             UserSeeder::class,
             ProdutoSeeder::class,
-            PacoteSeeder::class,
         ]);
     }
 }
