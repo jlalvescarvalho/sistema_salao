@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\DataTables\ServicosDataTable;
 use App\Http\Requests\CreateUpdateServicoRequest;
 use App\Models\Servico;
-use Exception;
-use Illuminate\Http\Request;
 
 class ServicoController extends Controller
 {
@@ -24,8 +22,9 @@ class ServicoController extends Controller
     public function create()
     {
         return view('servicos.form', [
-            'pageTitle' => 'Cadastro de Serviços'
-        ])->withServico(new Servico());
+            'pageTitle' => 'Cadastro de Serviços',
+            'servico' => new Servico(),
+        ]);
     }
 
     /**
@@ -43,8 +42,9 @@ class ServicoController extends Controller
     public function edit(Servico $servico)
     {
         return view('servicos.form', [
-            'pageTitle' => 'Editar Serviço'
-        ])->withServico($servico);
+            'pageTitle' => 'Editar Serviço',
+            'servico' => $servico,
+        ]);
     }
 
     /**
@@ -61,6 +61,18 @@ class ServicoController extends Controller
      */
     public function destroy(Servico $servico)
     {
+        if ($servico->agendamentos()->count() > 0) {
+            return redirect()->route('servicos.index')->withErrors([
+                'alerta-usuario' => 'Não é possível excluir um serviço que possui agendamentos.',
+            ]);
+        }
+
+        if ($servico->pacotes()->count() > 0) {
+            return redirect()->route('servicos.index')->withErrors([
+                'alerta-usuario' => 'Não é possível excluir um serviço que possui pacotes.',
+            ]);
+        }
+
         $servico->delete();
         return redirect()->route('servicos.index');
     }

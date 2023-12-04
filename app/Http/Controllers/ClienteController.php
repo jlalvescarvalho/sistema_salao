@@ -119,11 +119,6 @@ class ClienteController extends Controller
             return redirect()->route('clientes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um cliente que possui agendamentos.']);
         }
 
-        $temAgendamentoPacote = Agendamento::where('id_cliente', '=', $cliente->id)->exists();
-        if ($temAgendamentoPacote) {
-            return redirect()->route('clientes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um cliente que possui agendamentos de pacotes.']);
-        }
-
         $cliente->delete();
         return redirect()->route('clientes.index');
     }

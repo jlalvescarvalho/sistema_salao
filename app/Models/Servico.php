@@ -22,4 +22,14 @@ class Servico extends Model
     {
         return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
+
+    public function agendamentos()
+    {
+        return $this->hasMany(Agendamento::class, 'id_servico');
+    }
+
+    public function pacotes()
+    {
+        return $this->hasMany(Pacote::class, 'id_servico');
+    }
 }
