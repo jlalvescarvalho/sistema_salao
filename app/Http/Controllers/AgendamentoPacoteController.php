@@ -43,7 +43,7 @@ class AgendamentoPacoteController extends Controller
                 ])
                 ->with([
                     'contrato:id,id_cliente,id_pacote,qtd_sessoes_restantes' => [
-                        'cliente:id,nome',
+                        'cliente:id,nome,telefone',
                         'pacote:id,nome',
                     ],
                 ]);

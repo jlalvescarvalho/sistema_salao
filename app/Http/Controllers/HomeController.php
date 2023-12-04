@@ -2,23 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusAgendamento;
 use App\Models\Agendamento;
+use App\Models\AgendamentoPacote;
 use App\Models\Cliente;
 use App\Models\ContratoPacote;
-use App\Models\Servico;
-use Dotenv\Exception\ValidationException;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\Enum;
-use Nette\Utils\Arrays;
-use PhpParser\Node\Expr\Cast\Array_;
 
-enum status
-{
-    case pendente;
-    case concluido;
-    case cancelado;
-    case faltou;
-}
 class HomeController extends Controller
 {
     /**
@@ -28,54 +17,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $events  = array();
-        $clientes = Cliente::all();
-        $nContratos = ContratoPacote::where('status', '=', 'ativo')->count();
-        $nAgendamentosPendentes = Agendamento::where('status', '=', 'pendente')->count();
-        $nAgendamentosConcluidos = Agendamento::where('status', '=', 'concluido')->count();
-        $agendamentos = $this->buscar();
-        $servicos = Servico::All();
+        $totalClientes = Cliente::count();
+        $totalContratosAtivos = ContratoPacote::where('status', '=', 'ativo')->count();
 
-        foreach ($agendamentos as $agenda) {
-            $events[] = [
-                'title' => $agenda->servico->nome,
-                'start' => $agenda->data_hora,
-                'data' => $agenda->agendamento,
-            ];
-        }
+        $totalAgendamentosPendentes = Agendamento::where('status', '=', StatusAgendamento::Pendente)->count();
+        $totalAgendamentosPendentes += AgendamentoPacote::where('status', '=', StatusAgendamento::Pendente)->count();
 
-        return view('home', [
-            'clientes' => $clientes,
-            'nAgendamentosPendentes' => $nAgendamentosPendentes,
-            'nAgendamentosConcluidos' => $nAgendamentosConcluidos,
-            'nContratos' => $nContratos,
-            'agendamentos' => $events,
-            'servicos' => $servicos,
-        ]);
-    }
+        $totalAgendamentosConcluidos = Agendamento::where('status', '=', StatusAgendamento::Concluido)->count();
+        $totalAgendamentosConcluidos += AgendamentoPacote::where('status', '=', StatusAgendamento::Concluido)->count();
 
-    public function buscar()
-    {
-
-        $query = Agendamento::query()
-            ->select([
-                'id',
-                'id_cliente',
-                'id_servico',
-                'data_hora',
-                'data_hora_chegada',
-                'data_hora_finalizacao',
-                'duracao',
-                'observacao',
-                'status',
-            ])
-            ->with([
-                'cliente:id,nome',
-                'servico:id,nome',
-            ])->where('status', '=', 'pendente');
-
-        $agendamentos = $query->orderBy('data_hora')->get();
-
-        return $agendamentos;
+        return view('home', compact(
+            'totalClientes',
+            'totalAgendamentosPendentes',
+            'totalAgendamentosConcluidos',
+            'totalContratosAtivos',
+        ));
     }
 }

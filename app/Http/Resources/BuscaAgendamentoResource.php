@@ -6,7 +6,7 @@ use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class BuscaAgendamentoPacoteResource extends JsonResource
+class BuscaAgendamentoResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,21 +17,16 @@ class BuscaAgendamentoPacoteResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'contrato' => [
-                'id' => $this->contrato->id,
-                'qtd_sessoes_restantes' => $this->contrato->qtd_sessoes_restantes,
-            ],
             'cliente' => [
-                'id' => $this->contrato->cliente->id,
-                'nome' => $this->contrato->cliente->nome,
-                'telefone' => $this->contrato->cliente->telefone,
+                'id' => $this->cliente->id,
+                'nome' => $this->cliente->nome,
+                'telefone' => $this->cliente->telefone,
             ],
-            'pacote' => [
-                'id' => $this->contrato->pacote->id,
-                'nome' => $this->contrato->pacote->nome,
+            'servico' => [
+                'id' => $this->servico->id,
+                'nome' => $this->servico->nome,
             ],
             'data_hora' => $this->data_hora,
-            'data_minima_cancelamento' => $this->data_minima_cancelamento,
             'data_hora_chegada' => $this->data_hora_chegada,
             'data_hora_finalizacao' => $this->data_hora_finalizacao,
             'duracao' => CarbonInterval::createFromFormat("h:i:s", $this->duracao)->forHumans(),

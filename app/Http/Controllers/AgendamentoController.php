@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\StatusAgendamento;
 use App\Http\Requests\CreateAgendamentoRequest;
 use App\Http\Requests\UpdateAgendamentoRequest;
+use App\Http\Resources\BuscaAgendamentoResource;
 use App\Models\Agendamento;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +18,6 @@ class AgendamentoController extends Controller
      */
     public function buscar(Request $request)
     {
-
         try {
             $filtros = $request->validate([
                 'status' => ['nullable', Rule::enum(StatusAgendamento::class)],
@@ -43,7 +43,7 @@ class AgendamentoController extends Controller
                     'status',
                 ])
                 ->with([
-                    'cliente:id,nome',
+                    'cliente:id,nome,telefone',
                     'servico:id,nome',
                 ]);
 
@@ -65,7 +65,7 @@ class AgendamentoController extends Controller
 
             $agendamentos = $query->orderBy('data_hora')->get();
 
-            return response()->json(compact('agendamentos'));
+            return BuscaAgendamentoResource::collection($agendamentos);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()], 422);
         }
