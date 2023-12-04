@@ -8,8 +8,8 @@
 @stop
 
 @section('content')
-    <div class="d-flex justify-content-end pb-3">
-        <div class="col-12 col-lg-4">
+    <div class="row pb-3">
+        <div class="px-0 col-12 col-lg-4">
             <div class="col-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
@@ -34,8 +34,6 @@
 
             </div>
 
-
-            <div class="clearfix hidden-md-up"></div>
             <div class="col-12">
                 <div class="info-box mb-3">
                     <span class="info-box-icon bg-success elevation-1"><i class="fas fa-calendar-alt"></i></span>
@@ -61,7 +59,7 @@
             </div>
         </div>
         <div class="card card-primary col-12 col-lg-8">
-            <div class="card-body p-0 pb-2">
+            <div class="card-body p-0 pb-3">
                 <div id="calendar"></div>
             </div>
         </div>
@@ -139,8 +137,11 @@
     <style>
         .fc .fc-toolbar.fc-header-toolbar {
             margin-bottom: 0 !important;
-            padding-left: 0;
-            padding-right: 2px;
+        }
+
+        .fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
     </style>
 @stop
