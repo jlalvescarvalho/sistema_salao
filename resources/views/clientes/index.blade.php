@@ -7,9 +7,7 @@
 @stop
 
 @section('content')
-
-<a href="{{ route('clientes.create') }}"><button class="btn btn-primary">+ Novo</button></a>
-<br><br> 
+    <x-btn-create-resource route="clientes.create" />
     {{ $dataTable->table() }}
 @stop
 

@@ -54,4 +54,10 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+
+    @error('alerta-usuario')
+        <script>
+            alert('{{ $message }}');
+        </script>
+    @enderror
 @stop
