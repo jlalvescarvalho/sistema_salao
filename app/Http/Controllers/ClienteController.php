@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\DataTables\ClienteDataTable;
 use App\Http\Requests\CreateUpdateClienteRequest;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
-use App\DataTables\ServicosDataTable;
+use App\Models\Agendamento;
+use App\Models\ContratoPacote;
 use App\Models\Endereco;
 
 class ClienteController extends Controller
@@ -109,6 +109,21 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
+        $temContrato = ContratoPacote::where('id_cliente', '=', $cliente->id)->exists();
+        if ($temContrato) {
+            return redirect()->route('clientes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um cliente que possui contratos.']);
+        }
+
+        $temAgendamento = Agendamento::where('id_cliente', '=', $cliente->id)->exists();
+        if ($temAgendamento) {
+            return redirect()->route('clientes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um cliente que possui agendamentos.']);
+        }
+
+        $temAgendamentoPacote = Agendamento::where('id_cliente', '=', $cliente->id)->exists();
+        if ($temAgendamentoPacote) {
+            return redirect()->route('clientes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um cliente que possui agendamentos de pacotes.']);
+        }
+
         $cliente->delete();
         return redirect()->route('clientes.index');
     }
