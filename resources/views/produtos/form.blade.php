@@ -39,7 +39,7 @@
         <div class="form-group">
             <label for="un">Unidade de Medida</label>
             <input id="un" type="text" name="un" class="form-control @error('un') is-invalid @enderror"
-                value="{{ old('un', $produto->un) }}" placeholder="Unidade de Medida" required>
+                value="{{ old('un', $produto->un) }}" placeholder="Ex.: 20ml" required>
             @error('un')
                 <small class="text-danger">{{ $message }}</small>
             @enderror
