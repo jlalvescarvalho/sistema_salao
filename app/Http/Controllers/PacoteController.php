@@ -72,6 +72,10 @@ class PacoteController extends Controller
      */
     public function destroy(Pacote $pacote)
     {
+        if ($pacote->contratos()->count() > 0) {
+            return redirect()->route('pacotes.index')->withErrors(['alerta-usuario' => 'Não é possível excluir um pacote que possui contratos vinculados.']);
+        }
+
         $pacote->delete();
         return redirect()->route('pacotes.index');
     }

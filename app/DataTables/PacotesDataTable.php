@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class PacotesDataTable extends DataTable
@@ -49,7 +47,7 @@ class PacotesDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy(1, 'asc')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -69,12 +67,11 @@ class PacotesDataTable extends DataTable
         return [
 
             Column::make('id')->title('ID'),
-            // Column::make('nome')->title('Nome'),
+            Column::make('nome')->title('Nome'),
             Column::make('descricao')->title('Descrição'),
             Column::make('valor')->title('Valor')->renderJs('number', '.', ',', '2', ''),
             Column::make('qtd_sessoes')->title('Sessões'),
             Column::make('validade')->title('Validade(dias)'),
-            Column::make('created_at')->date_format('Y-m-d')->title('Criado'),
             Column::computed('action')->addClass('text-center')->title('Ações'),
         ];
     }

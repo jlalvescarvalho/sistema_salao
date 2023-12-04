@@ -29,4 +29,9 @@ class Pacote extends Model
     {
         return $this->belongsTo(Servico::class, 'id_servico');
     }
+
+    public function contratos()
+    {
+        return $this->hasMany(ContratoPacote::class, 'id_pacote');
+    }
 }
