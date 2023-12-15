@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\ContratosDataTable;
 use App\Models\ContratoPacote;
 use App\Models\Pacote;
 use Illuminate\Http\Request;
 
 class ContratoPacoteController extends Controller
 {
-    public function index()
+    public function index(ContratosDataTable $contratosDataTable)
     {
-        return view('contratos.index');
+        return $contratosDataTable->render('contratos.index');
     }
 
     public function store(Request $request)
@@ -35,6 +36,12 @@ class ContratoPacoteController extends Controller
     public function cancelar(ContratoPacote $pacote)
     {
         $pacote->update(['status' => 'cancelado']);
+        return redirect()->route('pacotes.index');
+    }
+
+    public function destroy(ContratoPacote $pacote)
+    {
+        $pacote->delete();
         return redirect()->route('pacotes.index');
     }
 }
