@@ -309,34 +309,33 @@ return [
         [
             'text'        => 'Produtos',
             'url'         => '/produtos',
-            'icon'        => 'fa fa-archive',
+            'icon'        => 'fa fa-list-ul',
         ],
         [
             'text'        => 'Servicos',
             'url'         => '/servicos',
-            'icon'        => 'fa fa-list-alt',
+            'icon'        => 'fa fa-clipboard-list',
         ],
         [
             'text'        => 'Pacotes',
             'url'         => '/pacotes',
-            'icon'        => 'fa fa-crosshairs',
+            'icon'        => 'fa fa-boxes',
         ],
         [
             'text'        => 'Contratos',
             'url'         => '/contratos',
-            'icon'        => 'fa fa-crosshairs',
+            'icon'        => 'fa fa-file-signature',
         ],
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => '/empresa/show',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'Usuários',
-        //     'url'  => '/users',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
+        [
+            'text'        => 'Agendamentos',
+            'url'         => '/agendamentos',
+            'icon'        => 'fa fa-calendar-day',
+        ],
+        [
+            'text'        => 'Agendamento de Pacotes',
+            'url'         => '/agendamentos-de-pacotes',
+            'icon'        => 'fa fa-calendar-week',
+        ],
     ],
 
     /*
