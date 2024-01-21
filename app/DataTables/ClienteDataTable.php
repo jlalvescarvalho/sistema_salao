@@ -72,7 +72,7 @@ class ClienteDataTable extends DataTable
             Column::make('telefone')->title('Fone'),
             Column::make('cpf')->title('Cpf'),
             Column::make('data_nascimento')->date_format('d-m-Y')->title('Nascimento'),
-            Column::make('created_at')->date_format('d-m-Y')->title('Criado'),
+            Column::make('created_at')->date_format('d-m-Y')->title('Cadastrado'),
             Column::computed('action')
                 ->addClass('text-center')->title('Ações'),
         ];

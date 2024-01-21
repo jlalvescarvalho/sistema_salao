@@ -3,7 +3,7 @@
 @section('title', 'Serviços')
 
 @section('content_header')
-<div style="padding-bottom: 1px;"></div>
+    <h1>Serviços</h1>
 @stop
 
 @section('content')
