@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AgendamentoPacoteDataTable;
 use App\Enums\StatusAgendamento;
 use App\Enums\StatusContratoPacote;
 use App\Http\Requests\CreateAgendamentoPacoteRequest;
@@ -16,6 +17,11 @@ use Illuminate\Validation\ValidationException;
 
 class AgendamentoPacoteController extends Controller
 {
+    public function index(AgendamentoPacoteDataTable $dataTable)
+    {
+        return $dataTable->render('agendamentos-pacotes.index');
+    }
+
     public function buscar(Request $request)
     {
         try {
