@@ -195,7 +195,7 @@
                         title: agendamento.servico.nome,
                         start: agendamento.data_hora,
                         ...agendamento,
-                        tipo: "comum"
+                        tipo: "comum",
                     });
                 });
             });
@@ -208,7 +208,8 @@
                         title: agendamento.pacote.nome,
                         start: agendamento.data_hora,
                         ...agendamento,
-                        tipo: "pacote"
+                        tipo: "pacote",
+                        color: 'purple'
                     });
                 });
             });

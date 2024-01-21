@@ -2,17 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\AgendamentoDataTable;
 use App\Enums\StatusAgendamento;
 use App\Http\Requests\CreateAgendamentoRequest;
 use App\Http\Requests\UpdateAgendamentoRequest;
 use App\Http\Resources\BuscaAgendamentoResource;
 use App\Models\Agendamento;
+use App\Models\Cliente;
+use App\Models\Servico;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AgendamentoController extends Controller
 {
+    public function index(AgendamentoDataTable $dataTable)
+    {
+        return $dataTable->render('agendamentos.index');
+    }
+
+    public function create()
+    {
+        return view('agendamentos.form', [
+            'pageTitle' => 'Cadastrar Agendamento',
+            'servicos' => Servico::select('id', 'nome')->get(),
+            'clientes' => Cliente::select('id', 'nome')->orderBy('nome')->get(),
+            'agendamento' => new Agendamento(),
+        ]);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -76,9 +94,8 @@ class AgendamentoController extends Controller
      */
     public function store(CreateAgendamentoRequest $request)
     {
-
         Agendamento::create($request->validated());
-        return response()->json(['message' => 'Agendamento cadastrado com sucesso!'], 201);
+        return redirect()->route('agendamentos.index');
     }
 
     /**
@@ -94,7 +111,7 @@ class AgendamentoController extends Controller
      */
     public function update(UpdateAgendamentoRequest $request, Agendamento $agendamento)
     {
-        if ($agendamento->status == 'Concluido') {
+        if ($agendamento->status == StatusAgendamento::Concluido) {
             return response()->json(['message' => 'Agendamento já concluído!'], 400);
         }
 

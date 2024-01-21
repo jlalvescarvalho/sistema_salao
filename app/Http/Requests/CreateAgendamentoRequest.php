@@ -17,7 +17,7 @@ class CreateAgendamentoRequest extends FormRequest
             'id_cliente' => 'required|exists:clientes,id',
             'id_servico' => 'required|exists:servicos,id',
             'data_hora' => 'required|date',
-            'duracao' => 'nullable|date_format:H:i:s|min:00:00:00',
+            'duracao' => 'nullable|date_format:H:i',
             'observacao' => 'nullable|string|max:255',
         ];
     }
