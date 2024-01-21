@@ -18,4 +18,9 @@ enum StatusAgendamento: string
             self::Faltou => "danger",
         };
     }
+
+    public static function getOptions()
+    {
+        return array_column(StatusAgendamento::cases(), 'value');
+    }
 }

@@ -27,7 +27,32 @@ class AgendamentoController extends Controller
             'pageTitle' => 'Cadastrar Agendamento',
             'servicos' => Servico::select('id', 'nome')->get(),
             'clientes' => Cliente::select('id', 'nome')->orderBy('nome')->get(),
+            'statusList' => [StatusAgendamento::Pendente->value],
             'agendamento' => new Agendamento(),
+        ]);
+    }
+
+    public function edit(Agendamento $agendamento)
+    {
+        $agendamento->load([
+            'servico:id,nome',
+            'cliente:id,nome',
+        ]);
+
+        $statusList = [StatusAgendamento::Concluido->value];
+        if ($agendamento->status != StatusAgendamento::Concluido->value) {
+            $statusList = array_filter(
+                StatusAgendamento::getOptions(),
+                fn ($v) => $v != StatusAgendamento::Concluido->value
+            );
+        }
+
+        return view('agendamentos.form', [
+            'pageTitle' => 'Editar Agendamento',
+            'servicos' => [$agendamento->servico],
+            'clientes' => [$agendamento->cliente],
+            'statusList' => $statusList,
+            'agendamento' => $agendamento,
         ]);
     }
 
@@ -111,17 +136,17 @@ class AgendamentoController extends Controller
      */
     public function update(UpdateAgendamentoRequest $request, Agendamento $agendamento)
     {
-        if ($agendamento->status == StatusAgendamento::Concluido) {
-            return response()->json(['message' => 'Agendamento já concluído!'], 400);
+        if ($agendamento->status == StatusAgendamento::Concluido->value) {
+            return redirect()->route('agendamentos.index')->withErrors(['alerta-usuario' => 'Não é possível editar um agendamento já concluído!']);
         }
 
         $agendamento->update($request->validated());
-        return response()->json(['message' => 'Agendamento atualizado com sucesso!'], 200);
+        return redirect()->route('agendamentos.index');
     }
 
     public function concluir(Request $request, Agendamento $agendamento)
     {
-        if ($agendamento->status == StatusAgendamento::Concluido) {
+        if ($agendamento->status == StatusAgendamento::Concluido->value) {
             return response()->json(['message' => 'Agendamento já concluído!'], 422);
         }
 
@@ -135,7 +160,7 @@ class AgendamentoController extends Controller
             $dados['data_hora_finalizacao'] = now();
         }
 
-        $dados['status'] = StatusAgendamento::Concluido;
+        $dados['status'] = StatusAgendamento::Concluido->value;
         $agendamento->update($dados);
         return response()->json(['message' => 'Agendamento concluído com sucesso!'], 200);
     }

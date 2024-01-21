@@ -17,9 +17,9 @@
     @csrf
     <section>
         <div class="row">
-            <div class="form-group col-12 col-lg-6">
+            <div class="form-group col-12 col-lg-5">
                 <label for="id_cliente">Cliente</label>
-                <select id="id_cliente" name="id_cliente" class="form-control @error('id_cliente') is-invalid @enderror">
+                <select id="id_cliente" name="id_cliente" class="form-control @error('id_cliente') is-invalid @enderror" {{ $agendamento->exists ? 'disabled' : '' }}>
                     <option value="" disabled hidden @if (empty(old('id_cliente', $agendamento->id_cliente))) selected @endif>Escolha o cliente</option>
                     @foreach ($clientes as $cliente)
                         <option value="{{ $cliente->id }}" @if (old('id_cliente', $agendamento->id_cliente) === $cliente->id) selected @endif >{{ $cliente->nome }}</option>
@@ -29,15 +29,27 @@
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="form-group col-12 col-lg-6">
+            <div class="form-group col-12 col-lg-5">
                 <label for="id_servico">Serviço</label>
-                <select id="id_servico" name="id_servico" class="form-control @error('id_servico') is-invalid @enderror">
+                <select id="id_servico" name="id_servico" class="form-control @error('id_servico') is-invalid @enderror" {{ $agendamento->exists ? 'disabled' : '' }}>
                     <option value="" disabled hidden @if (empty(old('id_servico', $agendamento->id_servico))) selected @endif>Escolha o serviço</option>
                     @foreach ($servicos as $servico)
                         <option value="{{ $servico->id }}" @if (old('id_servico', $agendamento->id_servico) === $servico->id) selected @endif >{{ $servico->nome }}</option>
                     @endforeach
                 </select>
                 @error('id_servico')
+                    <small class="text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="form-group col-12 col-lg-2">
+                <label for="status">Status</label>
+                <select id="status" name="status" class="form-control @error('status') is-invalid @enderror" {{ count($statusList) == 1  ? 'disabled' : '' }}>
+                    <option value="{{ $statusList[0] }}" disabled hidden @if (empty(old('status', $agendamento->status))) selected @endif>{{ ucfirst($statusList[0]) }}</option>
+                    @foreach ($statusList as $status)
+                        <option value="{{ $status }}" @if (old('status', $agendamento->status) === $status) selected @endif >{{ ucfirst($status) }}</option>
+                    @endforeach
+                </select>
+                @error('status')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror
             </div>
@@ -48,9 +60,7 @@
                 <input id="data_hora" type="datetime-local" name="data_hora"
                     class="form-control @error('data_hora') is-invalid @enderror"
                     value="{{ old('data_hora', $agendamento->data_hora) }}" 
-                    @if (!$agendamento->exists) 
-                        min="{{ date('Y-m-d\Th:i') }}"
-                    @endif
+                    min="{{ date('Y-m-d\Th:i') }}"
                     >
                 @error('data_hora')
                     <small class="text-danger">{{ $message }}</small>
