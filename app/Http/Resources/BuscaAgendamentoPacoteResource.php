@@ -34,7 +34,7 @@ class BuscaAgendamentoPacoteResource extends JsonResource
             'data_minima_cancelamento' => $this->data_minima_cancelamento,
             'data_hora_chegada' => $this->data_hora_chegada,
             'data_hora_finalizacao' => $this->data_hora_finalizacao,
-            'duracao' => CarbonInterval::createFromFormat("h:i:s", $this->duracao)->forHumans(),
+            'duracao' => $this->duracao ? CarbonInterval::createFromFormat("h:i:s", $this->duracao)->forHumans() : null,
             'observacao' => $this->observacao,
             'status' => $this->status,
         ];

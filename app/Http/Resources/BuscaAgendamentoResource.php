@@ -29,7 +29,7 @@ class BuscaAgendamentoResource extends JsonResource
             'data_hora' => $this->data_hora,
             'data_hora_chegada' => $this->data_hora_chegada,
             'data_hora_finalizacao' => $this->data_hora_finalizacao,
-            'duracao' => CarbonInterval::createFromFormat("h:i:s", $this->duracao)->forHumans(),
+            'duracao' => $this->duracao ? CarbonInterval::createFromFormat("h:i:s", $this->duracao)->forHumans() : null,
             'observacao' => $this->observacao,
             'status' => $this->status,
         ];
