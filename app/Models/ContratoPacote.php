@@ -12,6 +12,8 @@ class ContratoPacote extends Model
 
     protected $table = 'contratos_pacotes';
     protected $fillable = [
+        'id_cliente',
+        'id_pacote',
         'data_contrato',
         'data_vencimento',
         'qtd_sessoes',

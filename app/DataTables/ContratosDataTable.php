@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Enums\StatusContratoPacote;
 use App\Models\Contrato;
 use App\Models\ContratoPacote;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -28,6 +29,10 @@ class ContratosDataTable extends DataTable
                 $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('contratos.edit', ['contrato' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
                 return $editarButton;
             })
+            ->editColumn('status', function ($row) {
+                $status = StatusContratoPacote::from($row->status);
+                return "<span class='badge badge-{$status->cor()}'>" . ucfirst($status->value) . "</span>";
+            })
             ->setRowId('id');
     }
 
@@ -40,7 +45,13 @@ class ContratosDataTable extends DataTable
             $join->on('contratos_pacotes.id_cliente', '=', 'clientes.id');
             // })->join('pacotes', function ($join1) {
             //     $join1->on('contratos_pacotes.id_pacote', '=', 'pacotes.id');
-        })->select('contratos_pacotes.id', 'clientes.nome',  'contratos_pacotes.data_contrato', 'contratos_pacotes.data_vencimento');
+        })->select(
+            'contratos_pacotes.id',
+            'clientes.nome',
+            'contratos_pacotes.data_contrato',
+            'contratos_pacotes.data_vencimento',
+            'status'
+        );
     }
 
     /**
@@ -72,10 +83,11 @@ class ContratosDataTable extends DataTable
     {
         return [
             Column::make('id')->title('ID'),
-            Column::make('nome')->title('cliente'),
+            Column::make('nome')->title('Cliente'),
             // Column::make('nome')->title('pacote'),
-            Column::make('data_contrato')->title('data contrato'),
-            Column::make('data_vencimento')->title('vencimento'),
+            Column::make('data_vencimento')->title('Vencimento'),
+            Column::make('status')->title('Status'),
+            Column::make('data_contrato')->title('Data Contrato'),
             // Column::computed('action')->addClass('text-center')->title('Ações'),
         ];
     }

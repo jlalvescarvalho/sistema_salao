@@ -8,4 +8,14 @@ enum StatusContratoPacote: string
     case Vencido = 'vencido';
     case Finalizado = 'finalizado';
     case Cancelado = 'cancelado';
+
+    public function cor()
+    {
+        return match ($this) {
+            self::Ativo => "warning",
+            self::Finalizado => "success",
+            self::Cancelado => "secondary",
+            self::Vencido => "danger",
+        };
+    }
 }

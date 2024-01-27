@@ -22,6 +22,54 @@ class AgendamentoPacoteController extends Controller
         return $dataTable->render('agendamentos-pacotes.index');
     }
 
+    public function create()
+    {
+        $contratos = ContratoPacote::select([
+            'contratos_pacotes.id',
+            'id_pacote',
+            'id_cliente'
+        ])
+            ->where('status', StatusContratoPacote::Ativo->value)
+            ->with([
+                'cliente:id,nome',
+                'pacote:id,nome',
+            ])
+            ->get()
+            ->map(fn ($v) => ['id' => $v->id, 'label' => "{$v->cliente->nome} - {$v->pacote->nome}"]);
+
+        return view('agendamentos-pacotes.form', [
+            'pageTitle' => 'Cadastrar Agendamento',
+            'contratos' => $contratos,
+            'statusList' => [StatusAgendamento::Pendente->value],
+            'agendamento' => new AgendamentoPacote(),
+        ]);
+    }
+
+    public function edit(AgendamentoPacote $agendamento)
+    {
+        $agendamento->load([
+            'contrato:id,id_cliente,id_pacote',
+        ]);
+        $agendamento->contrato->load([
+            'cliente:id,nome',
+            'pacote:id,nome',
+        ]);
+
+        $statusList = [StatusAgendamento::Concluido->value];
+        if ($agendamento->status != StatusAgendamento::Concluido->value) {
+            $statusList = array_filter(
+                StatusAgendamento::getOptions(),
+                fn ($v) => $v != StatusAgendamento::Concluido->value
+            );
+        }
+
+        return view('agendamentos.form', [
+            'pageTitle' => 'Editar Agendamento de Pacote',
+            'statusList' => $statusList,
+            'agendamento' => $agendamento,
+        ]);
+    }
+
     public function buscar(Request $request)
     {
         try {
@@ -78,7 +126,7 @@ class AgendamentoPacoteController extends Controller
     {
         $contrato = ContratoPacote::find($request->id_contrato_pacote);
 
-        if ($contrato->status != 'Ativo') {
+        if ($contrato->status != StatusContratoPacote::Ativo->value) {
             return response()->json(['message' => 'Este contrato está ' . $contrato->status], 422);
         }
 

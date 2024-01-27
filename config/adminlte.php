@@ -333,7 +333,7 @@ return [
         ],
         [
             'text'        => 'Agendamento de Pacotes',
-            'url'         => '/pacotes/agendamentos',
+            'url'         => 'agendamentos-de-pacotes',
             'icon'        => 'fa fa-calendar-week',
         ],
     ],
