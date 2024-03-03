@@ -21,22 +21,22 @@ Os serviços devem conter os dados descritos do diagrama.
 [X] excluir (apenas se não tiver nenhum uso, caso queira, pode desativar o pacote quando editar)
 # [pendente] Contratos
 [X] listar
-[] criar 
+[X] criar 
 [] cancelar
 [] criar job para atualizar o status dos contratos para "vencido" - rodar todo dia a meia noite.
 # [pendente] Agendamento Simples
 [X] Mostrar no calendário da Home
 [X] listar
-[X] criar (back já está pronto)
-[X] atualizar (back já está pronto)
-[] concluir (back já está pronto)
+[X] criar
+[X] atualizar
+[X] concluir
 [] criar job para atualizar o status dos agendamento para "faltou" - rodar de hora em hora.
 # [pendente] Agendamento De Pacotes
-[] Mostrar no calendário da Home
-[] listar
-[] criar (back já está pronto)
-[] atualizar (back já está pronto)
-[] concluir (back já está pronto)
+[X] Mostrar no calendário da Home
+[X] listar
+[X] criar
+[X] atualizar
+[X] concluir
 [] criar job para atualizar o status dos agendamento para "faltou" - rodar de hora em hora.
 # [pendente] Produtos
 [X] listar

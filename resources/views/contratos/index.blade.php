@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <x-btn-create-resource route="pacotes.create" />
+    <x-btn-create-resource route="contratos.create" />
     {{ $dataTable->table() }}
 @stop
 

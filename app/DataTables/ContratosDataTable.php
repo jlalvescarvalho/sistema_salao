@@ -41,17 +41,17 @@ class ContratosDataTable extends DataTable
      */
     public function query(ContratoPacote $model): QueryBuilder
     {
-        return $model->newQuery()->join('clientes', function ($join) {
-            $join->on('contratos_pacotes.id_cliente', '=', 'clientes.id');
-            // })->join('pacotes', function ($join1) {
-            //     $join1->on('contratos_pacotes.id_pacote', '=', 'pacotes.id');
-        })->select(
-            'contratos_pacotes.id',
-            'clientes.nome',
-            'contratos_pacotes.data_contrato',
-            'contratos_pacotes.data_vencimento',
-            'status'
-        );
+        return $model->newQuery()
+            ->with(["cliente:id,nome", "pacote:id,nome"])
+            ->select(
+                'contratos_pacotes.id',
+                'id_cliente',
+                'id_pacote',
+                'qtd_sessoes_restantes',
+                'data_vencimento',
+                'data_contrato',
+                'status'
+            );
     }
 
     /**
@@ -83,8 +83,9 @@ class ContratosDataTable extends DataTable
     {
         return [
             Column::make('id')->title('ID'),
-            Column::make('nome')->title('Cliente'),
-            // Column::make('nome')->title('pacote'),
+            Column::make('cliente.nome')->title('Cliente'),
+            Column::make('pacote.nome')->title('Pacote'),
+            Column::make('qtd_sessoes_restantes')->title('Restantes'),
             Column::make('data_vencimento')->title('Vencimento'),
             Column::make('status')->title('Status'),
             Column::make('data_contrato')->title('Data Contrato'),
