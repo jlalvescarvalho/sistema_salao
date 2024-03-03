@@ -69,16 +69,16 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <form id="form-evento-comum" class="modal-body">
                     <p class="nome-servico"></p>
                     <p class="data-hora"></p>
                     <p class="duracao-estimada"></p>
                     <p class="mb-0"><strong>Observação: </strong></p>
-                    <p class="observacao">Add your observation or notes here.</p>
-                </div>
+                    <p class="observacao"></p>
+                </form>
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary enviar-mensagem" href="" target="_blank">Enviar mensagem</a>
-                    <button type="button" class="btn btn-primary">Concluir</button>
+                    <button type="submit" for="form-evento-comum" class="btn btn-primary">Concluir</button>
                 </div>
             </div>
         </div>
@@ -93,17 +93,17 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <form id="form-evento-pacote" class="modal-body">
                     <p class="nome-pacote"></p>
                     <p class="data-hora"></p>
                     <p class="duracao-estimada"></p>
                     <p class="sessoes-restantes"></p>
                     <p class="mb-0"><strong>Observação: </strong></p>
-                    <p class="observacao">Add your observation or notes here.</p>
-                </div>
+                    <p class="observacao"></p>
+                </form>
                 <div class="modal-footer">
                     <a type="button" class="btn btn-secondary enviar-mensagem" href="" target="_blank">Enviar mensagem</a>
-                    <button type="button" class="btn btn-primary">Concluir</button>
+                    <button type="submit" for="form-evento-pacote" class="btn btn-primary">Concluir</button>
                 </div>
             </div>
         </div>
@@ -125,6 +125,10 @@
 
 @section('js')
     <script>
+        const state = {
+            eventSelected: null
+        };
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -147,7 +151,8 @@
                 editable: true,
                 events: [],
                 eventClick: function(info) {
-                    const dados = info.event.extendedProps;
+                    state.eventSelected = info.event;
+                    const dados = state.eventSelected.extendedProps;
                     let btnEnviarMsg;
                     switch(dados.tipo) {
                         case 'comum':
@@ -215,10 +220,46 @@
             });
         });
 
-    function dateFormatted(dateString) {
-        const date = new Date(dateString);
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-        return date.toLocaleDateString('pt-BR', options).replace(`de ${date.getFullYear()}`, "às");
-    }
+        function dateFormatted(dateString) {
+            const date = new Date(dateString);
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+            return date.toLocaleDateString('pt-BR', options).replace(`de ${date.getFullYear()}`, "às");
+        }
+
+        document.querySelector("#modal-evento-comum button[type='submit']").addEventListener('click', function() {
+            const form = document.querySelector("#form-evento-comum");
+            fetch(`/api/agendamentos/${state.eventSelected.id}/concluir`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(async response => {
+                if (response.status === 200) {
+                    state.eventSelected.remove();
+                    $('#modal-evento-comum').modal('hide');
+                }
+                const data = await response.json();
+                alert(data?.message ?? 'Erro ao concluir agendamento');
+            });
+        });
+
+        document.querySelector("#modal-evento-pacote button[type='submit']").addEventListener('click', function() {
+            const form = document.querySelector("#form-evento-pacote");
+            fetch(`/api/pacotes/agendamentos/${state.eventSelected.id}/concluir`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                }
+            }).then(async response => {
+                if (response.status === 200) {
+                    state.eventSelected.remove();
+                    $('#modal-evento-pacote').modal('hide');
+                }
+                const data = await response.json();
+                alert(data?.message ?? 'Erro ao concluir agendamento');
+            });
+        });
     </script>
 @stop

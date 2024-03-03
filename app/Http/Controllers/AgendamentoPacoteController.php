@@ -153,9 +153,10 @@ class AgendamentoPacoteController extends Controller
         return response()->json(['message' => 'Agendamento atualizado com sucesso!'], 200);
     }
 
-    public function concluir(Request $request, AgendamentoPacote $agendamento)
+    public function concluir(Request $request, int $id)
     {
-        if ($agendamento->status == StatusAgendamento::Concluido) {
+        $agendamento = AgendamentoPacote::findOrFail($id);
+        if ($agendamento->status == StatusAgendamento::Concluido->value) {
             return response()->json(['message' => 'Agendamento já concluído!'], 422);
         }
 
@@ -170,7 +171,7 @@ class AgendamentoPacoteController extends Controller
         }
 
         DB::beginTransaction();
-        $dados['status'] = StatusAgendamento::Concluido;
+        $dados['status'] = StatusAgendamento::Concluido->value;
         $agendamento->update($dados);
         $agendamento->contrato->decrement('qtd_sessoes_restantes');
         DB::commit();

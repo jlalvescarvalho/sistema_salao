@@ -55,8 +55,7 @@
                     </span>
                 </div>
                 <input id="preco_venda" name="preco_venda" class="form-control @error('preco_venda') is-invalid @enderror"
-                    value="{{ old('preco_venda', $servico->preco_venda) }}" type="number" class="form-control" min="0" max="999999"
-                    placeholder="0.00" required>
+                    value="{{ old('preco_venda', $servico->preco_venda) }}" type="number" class="form-control" placeholder="0.00" required>
             </div>
             @error('preco_venda')
                 <small class="text-danger">{{ $message }}</small>

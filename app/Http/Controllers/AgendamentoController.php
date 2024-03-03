@@ -144,8 +144,9 @@ class AgendamentoController extends Controller
         return redirect()->route('agendamentos.index');
     }
 
-    public function concluir(Request $request, Agendamento $agendamento)
+    public function concluir(Request $request, int $id)
     {
+        $agendamento = Agendamento::findOrFail($id);
         if ($agendamento->status == StatusAgendamento::Concluido->value) {
             return response()->json(['message' => 'Agendamento já concluído!'], 422);
         }

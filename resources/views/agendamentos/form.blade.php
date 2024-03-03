@@ -59,8 +59,7 @@
                 <label for="data_hora">Data</label>
                 <input id="data_hora" type="datetime-local" name="data_hora"
                     class="form-control @error('data_hora') is-invalid @enderror"
-                    value="{{ old('data_hora', $agendamento->data_hora) }}" 
-                    min="{{ date('Y-m-d\Th:i') }}"
+                    value="{{ old('data_hora', $agendamento->data_hora) }}"
                     >
                 @error('data_hora')
                     <small class="text-danger">{{ $message }}</small>

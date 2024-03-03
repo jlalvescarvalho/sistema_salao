@@ -18,4 +18,4 @@ Route::get('/agendamentos/buscar', [App\Http\Controllers\AgendamentoController::
 Route::post('/agendamentos/{id}/concluir', [App\Http\Controllers\AgendamentoController::class, 'concluir'])->name('agendamentos.concluir');
 
 Route::get('/pacotes/agendamentos/buscar', [App\Http\Controllers\AgendamentoPacoteController::class, 'buscar'])->name('pacotes.agendamentos.buscar');
-Route::post('/pacotes/agendamentos/{id}/concluir', [App\Http\Controllers\AgendamentoController::class, 'concluir'])->name('pacotes.agendamentos.concluir');
+Route::post('/pacotes/agendamentos/{id}/concluir', [App\Http\Controllers\AgendamentoPacoteController::class, 'concluir'])->name('pacotes.agendamentos.concluir');
