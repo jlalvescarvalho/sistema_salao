@@ -22,10 +22,9 @@ class AgendamentoPacoteDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($row) {
-                // $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('pacotes.agendamentos.edit', ['agendamento' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
-                // $deletarButton = '<form method="POST" action="' . route('pacotes.agendamentos.destroy', ['agendamento' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
-                // return $editarButton;
-                return "";
+                $editarButton = '<button title="Editar" class="btn" style="margin-right: 5px;"><a href="' . route('pacotes.agendamentos.edit', ['agendamentos_de_pacote' => $row->id]) . '"><i class="fas fa-edit"></i></a></button>';
+                // $deletarButton = '<form method="POST" action="' . route('agendamentos.destroy', ['agendamento' => $row->id]) . '" style="display: inline;">' . csrf_field() . method_field('DELETE') . '<button type="submit" title="Deletar" class="btn"><i class="fas fa-trash-alt"></i></button></form>';
+                return $editarButton;
             })
             ->editColumn('status', function ($row) {
                 $status = StatusAgendamento::from($row->status);

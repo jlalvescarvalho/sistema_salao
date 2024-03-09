@@ -47,8 +47,7 @@
                 <label for="data_hora">Data</label>
                 <input id="data_hora" type="datetime-local" name="data_hora"
                     class="form-control @error('data_hora') is-invalid @enderror"
-                    value="{{ old('data_hora', $agendamento->data_hora) }}" 
-                    min="{{ date('Y-m-d\Th:i') }}"
+                    value="{{ old('data_hora', $agendamento->data_hora) }}"
                     >
                 @error('data_hora')
                     <small class="text-danger">{{ $message }}</small>
@@ -58,8 +57,7 @@
                 <label for="data_minima_cancelamento">Data mínima de cancelamento (opcional)</label>
                 <input id="data_minima_cancelamento" type="datetime-local" name="data_minima_cancelamento"
                     class="form-control @error('data_minima_cancelamento') is-invalid @enderror"
-                    value="{{ old('data_minima_cancelamento', $agendamento->data_minima_cancelamento) }}" 
-                    min="{{ date('Y-m-d\Th:i') }}"
+                    value="{{ old('data_minima_cancelamento', $agendamento->data_minima_cancelamento) }}"
                     >
                 @error('data_minima_cancelamento')
                     <small class="text-danger">{{ $message }}</small>

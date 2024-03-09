@@ -10,6 +10,7 @@ class AgendamentoPacote extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id_contrato_pacote',
         'data_hora',
         'data_minima_cancelamento',
         'duracao',

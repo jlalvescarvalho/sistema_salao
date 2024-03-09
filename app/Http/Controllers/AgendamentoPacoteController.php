@@ -24,7 +24,17 @@ class AgendamentoPacoteController extends Controller
 
     public function create()
     {
-        $contratos = ContratoPacote::select([
+        return view('agendamentos-pacotes.form', [
+            'pageTitle' => 'Cadastrar Agendamento',
+            'contratos' => $this->contratos(),
+            'statusList' => [StatusAgendamento::Pendente->value],
+            'agendamento' => new AgendamentoPacote(),
+        ]);
+    }
+
+    private function contratos()
+    {
+        return ContratoPacote::select([
             'contratos_pacotes.id',
             'id_pacote',
             'id_cliente'
@@ -36,17 +46,11 @@ class AgendamentoPacoteController extends Controller
             ])
             ->get()
             ->map(fn ($v) => ['id' => $v->id, 'label' => "{$v->cliente->nome} - {$v->pacote->nome}"]);
-
-        return view('agendamentos-pacotes.form', [
-            'pageTitle' => 'Cadastrar Agendamento',
-            'contratos' => $contratos,
-            'statusList' => [StatusAgendamento::Pendente->value],
-            'agendamento' => new AgendamentoPacote(),
-        ]);
     }
 
-    public function edit(AgendamentoPacote $agendamento)
+    public function edit(int $id)
     {
+        $agendamento = AgendamentoPacote::findOrFail($id);
         $agendamento->load([
             'contrato:id,id_cliente,id_pacote',
         ]);
@@ -63,8 +67,9 @@ class AgendamentoPacoteController extends Controller
             );
         }
 
-        return view('agendamentos.form', [
-            'pageTitle' => 'Editar Agendamento de Pacote',
+        return view('agendamentos-pacotes.form', [
+            'pageTitle' => 'Editar Agendamento',
+            'contratos' => $this->contratos(),
             'statusList' => $statusList,
             'agendamento' => $agendamento,
         ]);
@@ -124,10 +129,11 @@ class AgendamentoPacoteController extends Controller
 
     public function store(CreateAgendamentoPacoteRequest $request)
     {
-        $contrato = ContratoPacote::find($request->id_contrato_pacote);
+        $dados = $request->validated();
+        $contrato = ContratoPacote::find($dados['id_contrato_pacote']);
 
         if ($contrato->status != StatusContratoPacote::Ativo->value) {
-            return response()->json(['message' => 'Este contrato está ' . $contrato->status], 422);
+            return response()->json(['message' => 'Este contrato está ' . $contrato->status], 422); // FIX: remover json
         }
 
         if (now()->isAfter($contrato->data_vencimento)) {
@@ -139,18 +145,19 @@ class AgendamentoPacoteController extends Controller
             return response()->json(['message' => 'Não há mais sessões disponíveis para este pacote!'], 422);
         }
 
-        AgendamentoPacote::create($request->validated());
+        AgendamentoPacote::create($dados);
         return response()->json(['message' => 'Agendamento cadastrado com sucesso!'], 201);
     }
 
-    public function update(UpdateAgendamentoPacoteRequest $request, AgendamentoPacote $agendamento)
+    public function update(UpdateAgendamentoPacoteRequest $request, int $id)
     {
-        if ($agendamento->status == 'Concluido') {
-            return response()->json(['message' => 'Agendamento já concluído!'], 422);
+        $agendamento = AgendamentoPacote::findOrFail($id);
+        if ($agendamento->status == StatusAgendamento::Concluido->value) {
+            return redirect()->route('pacotes.agendamentos.index')->withErrors(['alerta-usuario' => 'Não é possível editar um agendamento já concluído!']);
         }
 
         $agendamento->update($request->validated());
-        return response()->json(['message' => 'Agendamento atualizado com sucesso!'], 200);
+        return redirect()->route('pacotes.agendamentos.index');
     }
 
     public function concluir(Request $request, int $id)
@@ -173,7 +180,14 @@ class AgendamentoPacoteController extends Controller
         DB::beginTransaction();
         $dados['status'] = StatusAgendamento::Concluido->value;
         $agendamento->update($dados);
-        $agendamento->contrato->decrement('qtd_sessoes_restantes');
+
+        $novosDadosContrato = [
+            'qtd_sessoes_restantes' => $agendamento->contrato->qtd_sessoes_restantes - 1
+        ];
+        if ($novosDadosContrato['qtd_sessoes_restantes'] == 0) {
+            $novosDadosContrato['status'] = StatusContratoPacote::Finalizado->value;
+        }
+        $agendamento->contrato->update($novosDadosContrato);
         DB::commit();
         return response()->json(['message' => 'Agendamento concluído com sucesso!'], 200);
     }
