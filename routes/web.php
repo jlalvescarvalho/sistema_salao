@@ -19,13 +19,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('produtos', App\Http\Controllers\ProdutoController::class)->except(['show']);
-Route::resource('clientes', App\Http\Controllers\ClienteController::class)->except(['show']);
-Route::resource('servicos', App\Http\Controllers\ServicoController::class)->except(['show']);
-Route::resource('pacotes', App\Http\Controllers\PacoteController::class)->except(['show']);
-Route::resource('agendamentos', App\Http\Controllers\AgendamentoController::class)->except(['destroy', 'show']);
-Route::resource('agendamentos-de-pacotes', App\Http\Controllers\AgendamentoPacoteController::class)->names('pacotes.agendamentos')->except(['destroy', 'show']);
-Route::resource('contratos', App\Http\Controllers\ContratoPacoteController::class)->except(['destroy', 'show']);
-Route::post('contratos/{id}/cancelar', [App\Http\Controllers\ContratoPacoteController::class, 'cancelar'])->name('contratos.cancelar');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('produtos', App\Http\Controllers\ProdutoController::class)->except(['show']);
+    Route::resource('clientes', App\Http\Controllers\ClienteController::class)->except(['show']);
+    Route::resource('servicos', App\Http\Controllers\ServicoController::class)->except(['show']);
+    Route::resource('pacotes', App\Http\Controllers\PacoteController::class)->except(['show']);
+    Route::resource('agendamentos', App\Http\Controllers\AgendamentoController::class)->except(['destroy', 'show']);
+    Route::resource('agendamentos-de-pacotes', App\Http\Controllers\AgendamentoPacoteController::class)->names('pacotes.agendamentos')->except(['destroy', 'show']);
+    Route::resource('contratos', App\Http\Controllers\ContratoPacoteController::class)->except(['destroy', 'show']);
+    Route::post('contratos/{id}/cancelar', [App\Http\Controllers\ContratoPacoteController::class, 'cancelar'])->name('contratos.cancelar');
+});

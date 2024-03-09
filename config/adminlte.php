@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Controle_Salão',
+    'title' => 'Carmem Estética',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -56,14 +56,14 @@ return [
     | Admin Panel Logo
     |--------------------------------------------------------------------------
     |
-    | Here you can change the logo of your admin panel.
+    | Here you can change the logo of yCarmemour admin panel.
     |
     | For detailed instructions you can look the logo section here:
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Basic-Configuration
     |
     */
 
-    'logo' => '<b>Controle</b>Salão',
+    'logo' => '<strong>Carmem Estética</strong>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
