@@ -27,9 +27,9 @@
                 @enderror
             </div>
             <div class="form-group col-12 col-lg-6">
-                <label for="cpf">CPF</label>
+                <label for="cpf">CPF (opcional)</label>
                 <input id="cpf" type="text" name="cpf" class="form-control @error('cpf') is-invalid @enderror"
-                    value="{{ old('cpf', $cliente->cpf) }}" placeholder="000.000.000-00" required>
+                    value="{{ old('cpf', $cliente->cpf) }}" placeholder="000.000.000-00">
                 @error('cpf')
                     <small class="text-danger">{{ $message }}</small>
                 @enderror

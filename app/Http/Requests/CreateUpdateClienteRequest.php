@@ -16,7 +16,7 @@ class CreateUpdateClienteRequest extends FormRequest
         return [
             'nome' => 'required|min:3|max:50',
             'telefone' => 'required|string|size:11',
-            'cpf' => 'required|size:11|unique:clientes,cpf,' . $this->route('cliente')?->id,
+            'cpf' => 'sometimes|size:11|unique:clientes,cpf,' . $this->route('cliente')?->id,
             'data_nascimento' => 'nullable|date_format:Y-m-d|before:today',
             'endereco' => 'nullable|array',
             'endereco.rua' => 'required_with:endereco|min:3|max:50',
