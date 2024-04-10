@@ -133,20 +133,20 @@ class AgendamentoPacoteController extends Controller
         $contrato = ContratoPacote::find($dados['id_contrato_pacote']);
 
         if ($contrato->status != StatusContratoPacote::Ativo->value) {
-            return response()->json(['message' => 'Este contrato está ' . $contrato->status], 422); // FIX: remover json
+            return redirect()->route('pacotes.agendamentos.index')->withErrors(['alerta-usuario' => 'Este contrato está ' . $contrato->status]);
         }
 
         if (now()->isAfter($contrato->data_vencimento)) {
             $contrato->update(['status' => StatusContratoPacote::Vencido]);
-            return response()->json(['message' => 'Este contrato está vencido!'], 422);
+            return redirect()->route('pacotes.agendamentos.index')->withErrors(['alerta-usuario' => 'Este contrato está vencido!']);
         }
 
         if ($contrato->qtd_sessoes_restantes <= 0) {
-            return response()->json(['message' => 'Não há mais sessões disponíveis para este pacote!'], 422);
+            return redirect()->route('pacotes.agendamentos.index')->withErrors(['alerta-usuario' => 'Não há mais sessões disponíveis para este pacote!']);
         }
 
         AgendamentoPacote::create($dados);
-        return response()->json(['message' => 'Agendamento cadastrado com sucesso!'], 201);
+        return redirect()->route('pacotes.agendamentos.index');
     }
 
     public function update(UpdateAgendamentoPacoteRequest $request, int $id)
